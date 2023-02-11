@@ -19,7 +19,6 @@
 /sql(.*)                                                                https://www.youtube.com/watch?v=dQw4w9WgXcQ
 /.git(.*)                                                               https://www.youtube.com/watch?v=dQw4w9WgXcQ
 (.*)/wp-includes/(.*)                                                   https://www.youtube.com/watch?v=dQw4w9WgXcQ
-/api(.*)                                                                https://www.youtube.com/watch?v=dQw4w9WgXcQ
 /Autodiscover(.*)                                                       https://www.youtube.com/watch?v=dQw4w9WgXcQ
 /_ignition(.*)                                                          https://www.youtube.com/watch?v=dQw4w9WgXcQ
 /solr(.*)                                                               https://www.youtube.com/watch?v=dQw4w9WgXcQ

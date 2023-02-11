@@ -16,8 +16,12 @@
   "dependencies": {
     "@danestves/cms": "workspace:*",
     "@danestves/web": "workspace:*",
+    "@types/compression": "^1.7.2",
+    "@types/on-finished": "^2.3.1",
+    "compression": "^1.7.4",
     "express": "4.18.2",
     "morgan": "^1.10.0",
+    "on-finished": "^2.4.1",
     "path-to-regexp": "^6.2.1"
   },
   "devDependencies": {
