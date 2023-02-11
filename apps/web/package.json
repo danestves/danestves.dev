@@ -1,0 +1,50 @@
+{
+  "name": "@danestves/web",
+  "version": "0.0.0",
+  "license": "MIT",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": "./build/index.js",
+      "require": "./build/index.js"
+    },
+    "./express": {
+      "import": "./express.js",
+      "require": "./express.js"
+    }
+  },
+  "scripts": {
+    "clean": "rm -rf node_modules build public/build .turbo",
+    "build": "remix build",
+    "dev": "remix build && run-p \"dev:*\"",
+    "dev:remix": "remix watch"
+  },
+  "prettier": "@danestves/prettier-config",
+  "eslintConfig": {
+    "extends": "@danestves/eslint-config/react-remix"
+  },
+  "dependencies": {
+    "@remix-run/express": "1.12.0",
+    "@remix-run/node": "1.12.0",
+    "@remix-run/react": "1.12.0",
+    "escape-html": "1.0.3",
+    "isbot": "3.6.5",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "slate": "0.90.0"
+  },
+  "devDependencies": {
+    "@danestves/cms": "workspace:*",
+    "@danestves/eslint-config": "workspace:*",
+    "@danestves/prettier-config": "workspace:*",
+    "@remix-run/dev": "1.12.0",
+    "@remix-run/eslint-config": "1.12.0",
+    "@types/escape-html": "1.0.2",
+    "@types/react": "18.0.27",
+    "@types/react-dom": "18.0.10",
+    "npm-run-all": "4.1.5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

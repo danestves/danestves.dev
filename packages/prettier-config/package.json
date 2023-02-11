@@ -1,0 +1,11 @@
+{
+  "name": "@danestves/prettier-config",
+  "version": "0.0.0",
+  "exports": {
+    ".": "./.prettierrc.json"
+  },
+  "prettier": "@danestves/prettier-config",
+  "dependencies": {
+    "prettier": "2.8.4"
+  }
+}

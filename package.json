@@ -1,0 +1,22 @@
+{
+  "name": "danestves.com",
+  "version": "0.0.0",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "dotenv -- turbo run build",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "dev": "dotenv -- turbo run dev --parallel",
+    "serve": "dotenv -- turbo run serve"
+  },
+  "devDependencies": {
+    "dotenv-cli": "7.0.0",
+    "turbo": "1.7.4"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
