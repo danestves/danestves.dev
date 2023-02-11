@@ -7,7 +7,7 @@
     "./react": "./dist/react.js"
   },
   "scripts": {
-    "build": "rm -rf dist/* && tsc",
+    "build": "rimraf dist/* && tsc",
     "dev": "tsc -w"
   },
   "prettier": "@danestves/prettier-config",
@@ -33,9 +33,7 @@
   "devDependencies": {
     "@danestves/prettier-config": "workspace:*",
     "@types/eslint": "8.21.0",
-    "@types/node": "18.13.0"
-  },
-  "optionalDependencies": {
-    "typescript": ">=4"
+    "@types/node": "18.13.0",
+    "typescript": "4.9.5"
   }
 }

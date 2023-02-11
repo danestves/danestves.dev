@@ -26,11 +26,15 @@
   "scripts": {
     "build": "pnpm build:payload && pnpm build:server && pnpm copyfiles",
     "build:payload": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload build",
-    "build:server": "rm -rf dist/* && tsc",
-    "clean": "rm -rf node_modules dist build .turbo",
+    "build:server": "rimraf dist/* && tsc",
+    "clean": "rimraf node_modules dist build .turbo",
     "copyfiles": "copyfiles -u 1 \"src/**/*.{html,css,scss,ttf,woff,woff2,eot,svg,jpg,png}\" build/ dist/ && copyfiles -u 1 \"build/**/*\" ../server/build",
     "generate:graphQLSchema": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload generate:graphQLSchema",
     "generate:types": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload generate:types"
+  },
+  "prettier": "@danestves/prettier-config",
+  "eslintConfig": {
+    "extends": "@danestves/eslint-config/react"
   },
   "dependencies": {
     "payload": "1.6.9"
@@ -41,7 +45,7 @@
     "@faceless-ui/modal": "2.0.1",
     "@types/react": "18.0.27",
     "@types/react-dom": "18.0.10",
-    "@types/react-router-dom": "^5.3.3",
+    "@types/react-router-dom": "5.3.3",
     "copyfiles": "2.4.1",
     "cross-env": "7.0.3",
     "react": "18.2.0",
@@ -51,9 +55,5 @@
     "slate-react": "0.88.0",
     "ts-node": "10.9.1",
     "typescript": "4.9.5"
-  },
-  "prettier": "@danestves/prettier-config",
-  "eslintConfig": {
-    "extends": "@danestves/eslint-config/react"
   }
 }

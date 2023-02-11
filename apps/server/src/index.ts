@@ -5,8 +5,10 @@ import { payload } from "@danestves/cms"
 import { createRequestHandler } from "@danestves/web/express"
 import compression from "compression"
 import express from "express"
+import promBundle from "express-prom-bundle"
 import morgan from "morgan"
 import onFinished from "on-finished"
+import serverTiming from "server-timing"
 
 import { getRedirectsMiddleware } from "./redirects"
 
@@ -25,6 +27,22 @@ const WEB_PUBLIC_BUILD_DIR = path.join(process.cwd(), "../web/public/web/build")
 
 async function start() {
   const app = express()
+  const metricsApp = express()
+  app.use(
+    promBundle({
+      includeMethod: true,
+      includePath: true,
+      includeStatusCode: true,
+      includeUp: true,
+      metricsPath: "/metrics",
+      promClient: {
+        collectDefaultMetrics: {},
+      },
+      metricsApp,
+    }),
+  )
+
+  app.use(serverTiming())
 
   app.use(async (req, res, next) => {
     res.set("X-Powered-By", "danestves LLC")

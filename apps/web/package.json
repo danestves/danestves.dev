@@ -14,7 +14,7 @@
     }
   },
   "scripts": {
-    "clean": "rm -rf node_modules build public/build .turbo",
+    "clean": "rimraf node_modules build public/build .turbo",
     "build": "remix build",
     "dev": "remix build && run-p \"dev:*\"",
     "dev:remix": "remix watch"

@@ -7,14 +7,21 @@ ENV CI true
 
 # install pnpm
 RUN apk add --no-cache libc6-compat
-RUN npm install -g pnpm turbo
+RUN npm install -g pnpm turbo dotenv-cli
 
 # Install all node_modules, including dev dependencies
 FROM base as deps
 
 WORKDIR /srv/app
 
-ADD package.json .npmrc apps/**/package.json packages/**/package.json ./
+ADD package.json pnpm-workspace.yaml .npmrc ./
+
+ADD apps/cms/package.json ./apps/cms/package.json
+ADD apps/server/package.json ./apps/server/package.json
+ADD apps/web/package.json ./apps/web/package.json
+ADD packages/eslint-config/package.json ./packages/eslint-config/package.json
+ADD packages/prettier-config/package.json ./packages/prettier-config/package.json
+
 RUN pnpm install --production=false
 
 # Setup production node_modules
@@ -23,7 +30,15 @@ FROM base as production-deps
 WORKDIR /srv/app
 
 COPY --from=deps /srv/app/node_modules /srv/app/node_modules
-ADD package.json .npmrc ./
+COPY --from=deps /srv/app/apps/cms/node_modules /srv/app/apps/cms/node_modules
+COPY --from=deps /srv/app/apps/server/node_modules /srv/app/apps/server/node_modules
+COPY --from=deps /srv/app/apps/web/node_modules /srv/app/apps/web/node_modules
+
+ADD package.json pnpm-workspace.yaml .npmrc ./
+ADD apps/cms/package.json ./apps/cms/package.json
+ADD apps/server/package.json ./apps/server/package.json
+ADD apps/web/package.json ./apps/web/package.json
+
 RUN pnpm prune --production
 
 # Build the app
@@ -32,6 +47,11 @@ FROM base as build
 WORKDIR /srv/app
 
 COPY --from=deps /srv/app/node_modules /srv/app/node_modules
+COPY --from=deps /srv/app/apps/cms/node_modules /srv/app/apps/cms/node_modules
+COPY --from=deps /srv/app/apps/server/node_modules /srv/app/apps/server/node_modules
+COPY --from=deps /srv/app/apps/web/node_modules /srv/app/apps/web/node_modules
+COPY --from=deps /srv/app/packages/eslint-config/node_modules /srv/app/packages/eslint-config/node_modules
+COPY --from=deps /srv/app/packages/prettier-config/node_modules /srv/app/packages/prettier-config/node_modules
 
 ADD . .
 RUN pnpm build
@@ -45,14 +65,17 @@ ENV NODE_ENV="production"
 WORKDIR /srv/app
 
 COPY --from=production-deps /srv/app/node_modules /srv/app/node_modules
+COPY --from=production-deps /srv/app/apps/cms/node_modules /srv/app/apps/cms/node_modules
+COPY --from=production-deps /srv/app/apps/server/node_modules /srv/app/apps/server/node_modules
+COPY --from=production-deps /srv/app/apps/web/node_modules /srv/app/apps/web/node_modules
 
-COPY --from=build /srv/app/apps/**/build /srv/app/apps/**/build
-COPY --from=build /srv/app/apps/**/dist /srv/app/apps/**/dist
-COPY --from=build /srv/app/packages/**/build /srv/app/packages/**/build
-COPY --from=build /srv/app/packages/**/dist /srv/app/packages/**/dist
+COPY --from=build /srv/app/apps/cms/build /srv/app/apps/cms/build
+COPY --from=build /srv/app/apps/server/build /srv/app/apps/server/build
+COPY --from=build /srv/app/apps/web/build /srv/app/apps/web/build
+COPY --from=build /srv/app/apps/web/public /srv/app/apps/web/public
 
-COPY --from=build /srv/app/apps/**/package.json /srv/app/apps/**/package.json
-COPY --from=build /srv/app/packages/**/package.json /srv/app/packages/**/package.json
+COPY --from=build /srv/app/apps/cms/dist /srv/app/apps/cms/dist
+COPY --from=build /srv/app/apps/server/dist /srv/app/apps/server/dist
 
 COPY --from=build /srv/app/package.json /srv/app/package.json
 

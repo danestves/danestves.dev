@@ -5,10 +5,14 @@ importers:
   .:
     specifiers:
       dotenv-cli: 7.0.0
+      rimraf: ^4.1.2
       turbo: 1.7.4
+      typescript: 4.9.5
     devDependencies:
       dotenv-cli: 7.0.0
+      rimraf: 4.1.2
       turbo: 1.7.4
+      typescript: 4.9.5
 
   apps/cms:
     specifiers:
@@ -17,7 +21,7 @@ importers:
       '@faceless-ui/modal': 2.0.1
       '@types/react': 18.0.27
       '@types/react-dom': 18.0.10
-      '@types/react-router-dom': ^5.3.3
+      '@types/react-router-dom': 5.3.3
       copyfiles: 2.4.1
       cross-env: 7.0.3
       payload: 1.6.9
@@ -53,18 +57,22 @@ importers:
       '@danestves/eslint-config': workspace:*
       '@danestves/prettier-config': workspace:*
       '@danestves/web': workspace:*
-      '@types/compression': ^1.7.2
+      '@types/compression': 1.7.2
       '@types/express': 4.17.17
-      '@types/morgan': ^1.9.4
+      '@types/morgan': 1.9.4
       '@types/node': 18.13.0
-      '@types/on-finished': ^2.3.1
-      compression: ^1.7.4
+      '@types/on-finished': 2.3.1
+      compression: 1.7.4
+      copyfiles: 2.4.1
       cross-env: 7.0.3
       express: 4.18.2
-      morgan: ^1.10.0
+      express-prom-bundle: ^6.6.0
+      morgan: 1.10.0
       nodemon: 2.0.20
-      on-finished: ^2.4.1
-      path-to-regexp: ^6.2.1
+      on-finished: 2.4.1
+      path-to-regexp: 6.2.1
+      prom-client: ^14.1.1
+      server-timing: ^3.3.3
       ts-node: 10.9.1
       typescript: 4.9.5
     dependencies:
@@ -74,15 +82,19 @@ importers:
       '@types/on-finished': 2.3.1
       compression: 1.7.4
       express: 4.18.2
+      express-prom-bundle: 6.6.0_prom-client@14.1.1
       morgan: 1.10.0
       on-finished: 2.4.1
       path-to-regexp: 6.2.1
+      prom-client: 14.1.1
+      server-timing: 3.3.3
     devDependencies:
       '@danestves/eslint-config': link:../../packages/eslint-config
       '@danestves/prettier-config': link:../../packages/prettier-config
       '@types/express': 4.17.17
       '@types/morgan': 1.9.4
       '@types/node': 18.13.0
+      copyfiles: 2.4.1
       cross-env: 7.0.3
       nodemon: 2.0.20
       ts-node: 10.9.1_4bewfcp2iebiwuold25d6rgcsy
@@ -149,7 +161,7 @@ importers:
       eslint-plugin-react-hooks: 4.6.0
       eslint-plugin-tailwindcss: 3.8.3
       prettier: 2.8.4
-      typescript: '>=4'
+      typescript: 4.9.5
     dependencies:
       '@babel/eslint-parser': 7.19.1_eslint@8.33.0
       '@babel/preset-react': 7.18.6
@@ -168,12 +180,11 @@ importers:
       eslint-plugin-react-hooks: 4.6.0_eslint@8.33.0
       eslint-plugin-tailwindcss: 3.8.3
       prettier: 2.8.4
-    optionalDependencies:
-      typescript: 4.9.5
     devDependencies:
       '@danestves/prettier-config': link:../prettier-config
       '@types/eslint': 8.21.0
       '@types/node': 18.13.0
+      typescript: 4.9.5
 
   packages/prettier-config:
     specifiers:
@@ -3747,6 +3758,10 @@ packages:
     dev: true
     optional: true
 
+  /bintrees/1.0.2:
+    resolution: {integrity: sha512-VOMgTMwjAaUG580SXn3LacVgjurrbMme7ZZNYGSSV7mmtY6QQRh0Eg3pwIcntQ77DErK1L0NxkbetjcoXzVwKw==}
+    dev: false
+
   /bl/4.1.0:
     resolution: {integrity: sha512-1W07cM9gS6DcLperZfFSj+bWLtaPGSOHWhPiGzXmvVJbRLdG82sH/Kn8EtW1VqWVA54AKf2h5k5BbnIbwF3h6w==}
     dependencies:
@@ -5807,6 +5822,17 @@ packages:
       graphql: 16.6.0
       http-errors: 1.8.0
       raw-body: 2.5.1
+    dev: false
+
+  /express-prom-bundle/6.6.0_prom-client@14.1.1:
+    resolution: {integrity: sha512-tZh2P2p5a8/yxQ5VbRav011Poa4R0mHqdFwn9Swe/obXDe5F0jY9wtRAfNYnqk4LXY7akyvR/nrvAHxQPWUjsQ==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      prom-client: '>=12.0.0'
+    dependencies:
+      on-finished: 2.4.1
+      prom-client: 14.1.1
+      url-value-parser: 2.2.0
     dev: false
 
   /express-rate-limit/5.5.1:
@@ -9765,6 +9791,13 @@ packages:
     engines: {node: '>= 0.6.0'}
     dev: false
 
+  /prom-client/14.1.1:
+    resolution: {integrity: sha512-hFU32q7UZQ59bVJQGUtm3I2PrJ3gWvoCkilX9sF165ks1qflhugVCeK+S1JjJYHvyt3o5kj68+q3bchormjnzw==}
+    engines: {node: '>=10'}
+    dependencies:
+      tdigest: 0.1.2
+    dev: false
+
   /promise-inflight/1.0.1:
     resolution: {integrity: sha512-6zWPyEOFaQBJYcGMHBKTKJ3u6TBsnMFOIZSa6ce1e/ZrrsOlnHRHbabMjLiBYKp+n44X9eUI6VUPaukCXHuG4g==}
     peerDependencies:
@@ -10474,6 +10507,12 @@ packages:
     dependencies:
       glob: 7.2.3
 
+  /rimraf/4.1.2:
+    resolution: {integrity: sha512-BlIbgFryTbw3Dz6hyoWFhKk+unCcHMSkZGrTFVAx2WmttdBSonsdtRlwiuTbDqTKr+UlXIUqJVS4QT5tUzGENQ==}
+    engines: {node: '>=14'}
+    hasBin: true
+    dev: true
+
   /rollup-plugin-inject/3.0.2:
     resolution: {integrity: sha512-ptg9PQwzs3orn4jkgXJ74bfs5vYz1NCZlSQMBUA0wKcGp5i5pA1AO3fOUEte8enhGUC+iapTCzEWw2jEFFUO/w==}
     deprecated: This package has been deprecated and is no longer maintained. Please use @rollup/plugin-inject.
@@ -10682,6 +10721,13 @@ packages:
       send: 0.18.0
     transitivePeerDependencies:
       - supports-color
+
+  /server-timing/3.3.3:
+    resolution: {integrity: sha512-TP0xWAca4oM8H/PSdeaGgp2qm+HrZ2cWCRcMXS2t500a7Wum/hSojlpTW43VZsIUSVNlKPFGDknH34IqF+mbBg==}
+    dependencies:
+      minimist: 1.2.7
+      on-headers: 1.0.2
+    dev: false
 
   /set-cookie-parser/2.5.1:
     resolution: {integrity: sha512-1jeBGaKNGdEq4FgIrORu/N570dwoPYio8lSoYLWmX7sQ//0JY08Xh9o5pBcgmHQ/MbsYp/aZnOe1s1lIsbLprQ==}
@@ -11252,6 +11298,12 @@ packages:
       yallist: 4.0.0
     dev: true
 
+  /tdigest/0.1.2:
+    resolution: {integrity: sha512-+G0LLgjjo9BZX2MfdvPfH+MKLCrxlXSYec5DaPYP1fe6Iyhf0/fSmJ0bFiZ1F8BT6cGXl2LpltQptzjXKWEkKA==}
+    dependencies:
+      bintrees: 1.0.2
+    dev: false
+
   /terser-webpack-plugin/5.3.6_z4awyrd6kcphbx6rxw3yqcwajy:
     resolution: {integrity: sha512-kfLFk+PoLUQIbLmB1+PZDMRSZS99Mp+/MHqDNmMA6tOItzRt+Npe3E+fsMs5mfcM0wCtrrdU387UnV+vnSffXQ==}
     engines: {node: '>= 10.13.0'}
@@ -11807,6 +11859,11 @@ packages:
       mime-types: 2.1.35
       schema-utils: 3.1.1
       webpack: 5.75.0_y3wrihl7uvzhzflzd72e5vvvra
+    dev: false
+
+  /url-value-parser/2.2.0:
+    resolution: {integrity: sha512-yIQdxJpgkPamPPAPuGdS7Q548rLhny42tg8d4vyTNzFqvOnwqrgHXvgehT09U7fwrzxi3RxCiXjoNUNnNOlQ8A==}
+    engines: {node: '>=6.0.0'}
     dev: false
 
   /use-context-selector/1.4.1_biqbaboplfbrettd7655fr4n2y:
