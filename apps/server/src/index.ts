@@ -26,9 +26,9 @@ let WEB_PUBLIC_DIR: string
 let WEB_PUBLIC_BUILD_DIR: string
 
 if (ENVIRONMENT === "production") {
-  WEB_BUILD_DIR = path.join(process.cwd(), "apps/web/build")
-  WEB_PUBLIC_DIR = path.join(process.cwd(), "apps/web/public/web")
-  WEB_PUBLIC_BUILD_DIR = path.join(process.cwd(), "apps/web/public/web/build")
+  WEB_BUILD_DIR = path.resolve("../web/build")
+  WEB_PUBLIC_DIR = path.resolve("../web/public/web")
+  WEB_PUBLIC_BUILD_DIR = path.resolve("../web/public/web/build")
 } else {
   WEB_BUILD_DIR = path.join(process.cwd(), "../web/build")
   WEB_PUBLIC_DIR = path.join(process.cwd(), "../web/public/web")
