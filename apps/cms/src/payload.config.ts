@@ -8,6 +8,7 @@ import Users from "./collections/Users"
 
 export default buildConfig({
   admin: {
+    buildPath: path.resolve(__dirname, "../build"),
     webpack: (config) => ({
       ...config,
       resolve: {

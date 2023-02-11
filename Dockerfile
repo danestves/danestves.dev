@@ -73,12 +73,18 @@ COPY --from=build /srv/app/apps/cms/build /srv/app/apps/cms/build
 COPY --from=build /srv/app/apps/server/build /srv/app/apps/server/build
 COPY --from=build /srv/app/apps/web/build /srv/app/apps/web/build
 COPY --from=build /srv/app/apps/web/public /srv/app/apps/web/public
+COPY --from=build /srv/app/apps/web/express.js /srv/app/apps/web/express.js
 
 COPY --from=build /srv/app/apps/cms/dist /srv/app/apps/cms/dist
 COPY --from=build /srv/app/apps/server/dist /srv/app/apps/server/dist
 
 COPY --from=build /srv/app/package.json /srv/app/package.json
+COPY --from=build /srv/app/apps/cms/package.json /srv/app/apps/cms/package.json
+COPY --from=build /srv/app/apps/server/package.json /srv/app/apps/server/package.json
+COPY --from=build /srv/app/apps/web/package.json /srv/app/apps/web/package.json
 
 ENV PAYLOAD_CONFIG_PATH="apps/cms/dist/payload.config.js"
+
+EXPOSE ${PORT}
 
 CMD ["node", "--conditions=serve", "apps/server/dist/index.js"]
