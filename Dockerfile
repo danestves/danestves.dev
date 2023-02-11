@@ -81,4 +81,6 @@ COPY --from=build /srv/app/package.json /srv/app/package.json
 
 ADD . .
 
-CMD ["pnpm", "serve"]
+ENV PAYLOAD_CONFIG_PATH="apps/cms/dist/payload.config.js"
+
+CMD ["node", "--conditions=serve", "apps/server/dist/index.js"]

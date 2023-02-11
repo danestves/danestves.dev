@@ -21,9 +21,19 @@ const MONGODB_URL = process.env.MONGODB_URL ?? ""
 const PAYLOADCMS_SECRET = process.env.PAYLOADCMS_SECRET ?? ""
 const ENVIRONMENT = process.env.NODE_ENV
 
-const WEB_BUILD_DIR = path.join(process.cwd(), "../web/build")
-const WEB_PUBLIC_DIR = path.join(process.cwd(), "../web/public/web")
-const WEB_PUBLIC_BUILD_DIR = path.join(process.cwd(), "../web/public/web/build")
+let WEB_BUILD_DIR: string
+let WEB_PUBLIC_DIR: string
+let WEB_PUBLIC_BUILD_DIR: string
+
+if (ENVIRONMENT === "production") {
+  WEB_BUILD_DIR = path.join(process.cwd(), "apps/web/build")
+  WEB_PUBLIC_DIR = path.join(process.cwd(), "apps/web/public/web")
+  WEB_PUBLIC_BUILD_DIR = path.join(process.cwd(), "apps/web/public/web/build")
+} else {
+  WEB_BUILD_DIR = path.join(process.cwd(), "../web/build")
+  WEB_PUBLIC_DIR = path.join(process.cwd(), "../web/public/web")
+  WEB_PUBLIC_BUILD_DIR = path.join(process.cwd(), "../web/public/web/build")
+}
 
 async function start() {
   const app = express()
