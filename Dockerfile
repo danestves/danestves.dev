@@ -79,8 +79,6 @@ COPY --from=build /srv/app/apps/server/dist /srv/app/apps/server/dist
 
 COPY --from=build /srv/app/package.json /srv/app/package.json
 
-ADD . .
-
 ENV PAYLOAD_CONFIG_PATH="apps/cms/dist/payload.config.js"
 
 CMD ["node", "--conditions=serve", "apps/server/dist/index.js"]
