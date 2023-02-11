@@ -46,8 +46,13 @@ WORKDIR /srv/app
 
 COPY --from=production-deps /srv/app/node_modules /srv/app/node_modules
 
-COPY --from=build /srv/app/{apps,packages}/**/{build,dist} /srv/app/{apps,packages}/**/{build,dist}
-COPY --from=build /srv/app/{apps,packages}/**/package.json /srv/app/{apps,packages}/**/package.json
+COPY --from=build /srv/app/apps/**/build /srv/app/apps/**/build
+COPY --from=build /srv/app/apps/**/dist /srv/app/apps/**/dist
+COPY --from=build /srv/app/packages/**/build /srv/app/packages/**/build
+COPY --from=build /srv/app/packages/**/dist /srv/app/packages/**/dist
+
+COPY --from=build /srv/app/apps/**/package.json /srv/app/apps/**/package.json
+COPY --from=build /srv/app/packages/**/package.json /srv/app/packages/**/package.json
 
 COPY --from=build /srv/app/package.json /srv/app/package.json
 
