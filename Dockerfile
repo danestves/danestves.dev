@@ -5,6 +5,12 @@ FROM node:18-alpine as base
 ENV NODE_ENV production
 ENV CI true
 
+ARG TURBO_TOKEN
+ENV TURBO_TOKEN ${TURBO_TOKEN}
+
+ARG TURBO_TEAM
+ENV TURBO_TEAM ${TURBO_TEAM}
+
 # install pnpm
 RUN apk add --no-cache libc6-compat
 RUN npm install -g pnpm turbo dotenv-cli
