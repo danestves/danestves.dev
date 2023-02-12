@@ -39,6 +39,7 @@ ADD package.json pnpm-workspace.yaml .npmrc ./
 ADD apps/cms/package.json ./apps/cms/package.json
 ADD apps/server/package.json ./apps/server/package.json
 ADD apps/web/package.json ./apps/web/package.json
+ADD apps/web/other/patches ./apps/web/other/patches
 
 RUN pnpm prune --production
 

@@ -107,7 +107,7 @@ importers:
       '@danestves/cms': workspace:*
       '@danestves/eslint-config': workspace:*
       '@danestves/prettier-config': workspace:*
-      '@milahu/patch-package': ^6.4.14
+      '@milahu/patch-package': 6.4.14
       '@remix-run/dev': 1.12.0
       '@remix-run/eslint-config': 1.12.0
       '@remix-run/express': 1.12.0
