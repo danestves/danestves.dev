@@ -60,7 +60,7 @@ ARG TURBO_TOKEN
 ENV TURBO_TOKEN=$TURBO_TOKEN
 
 ADD . .
-RUN turbo run build
+RUN pnpm build
 
 # Finally, build the production image with minimal footprint
 FROM base
