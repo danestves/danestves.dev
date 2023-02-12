@@ -5,6 +5,12 @@ FROM node:18-alpine as base
 ENV NODE_ENV production
 ENV CI true
 
+ARG TURBO_TOKEN
+ARG TURBO_TEAM
+
+ENV TURBO_TOKEN=$TURBO_TOKEN
+ENV TURBO_TEAM=$TURBO_TEAM
+
 # install pnpm
 RUN apk add --no-cache libc6-compat
 RUN npm install -g pnpm turbo dotenv-cli
@@ -43,15 +49,6 @@ RUN pnpm prune --production
 
 # Build the app
 FROM base as build
-
-ARG TURBO_TOKEN
-ARG TURBO_TEAM
-
-ENV TURBO_TOKEN=${TURBO_TOKEN}
-ENV TURBO_TEAM=${TURBO_TEAM}
-
-RUN echo "TURBO_TOKEN: ${TURBO_TOKEN}"
-RUN echo "TURBO_TEAM: ${TURBO_TEAM}"
 
 WORKDIR /srv/app
 
