@@ -17,11 +17,5 @@
       "dependsOn": ["^serve"]
     }
   },
-  "globalEnv": [
-    "PAYLOAD_CONFIG_PATH",
-    "PAYLOADCMS_SECRET",
-    "MONGODB_URL",
-    "NODE_ENV",
-    "PORT"
-  ]
+  "globalEnv": ["GITHUB_TOKEN"]
 }
