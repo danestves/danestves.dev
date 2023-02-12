@@ -50,6 +50,9 @@ ARG TURBO_TEAM
 ENV TURBO_TOKEN=${TURBO_TOKEN}
 ENV TURBO_TEAM=${TURBO_TEAM}
 
+RUN echo "TURBO_TOKEN: ${TURBO_TOKEN}"
+RUN echo "TURBO_TEAM: ${TURBO_TEAM}"
+
 WORKDIR /srv/app
 
 COPY --from=deps /srv/app/node_modules /srv/app/node_modules
