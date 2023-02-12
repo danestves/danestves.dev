@@ -1,3 +1,4 @@
+import crypto from "node:crypto"
 import fs from "node:fs"
 import path from "node:path"
 
@@ -6,6 +7,8 @@ import { createRequestHandler } from "@danestves/web/express"
 import compression from "compression"
 import express from "express"
 import promBundle from "express-prom-bundle"
+// @ts-expect-error
+import helmet from "helmet"
 import morgan from "morgan"
 import onFinished from "on-finished"
 import serverTiming from "server-timing"
@@ -19,7 +22,7 @@ const getHost = (req: { get: (key: string) => string | undefined }) =>
 
 const MONGODB_URL = process.env.MONGODB_URL ?? ""
 const PAYLOADCMS_SECRET = process.env.PAYLOADCMS_SECRET ?? ""
-const ENVIRONMENT = process.env.NODE_ENV
+const MODE = process.env.NODE_ENV
 
 const WEB_BUILD_DIR = path.join(__dirname, "../../web/build")
 const WEB_PUBLIC_DIR = path.join(__dirname, "../../web/public/web")
@@ -139,6 +142,34 @@ async function start() {
     }),
   )
 
+  app.use((req, res, next) => {
+    res.locals.cspNonce = crypto.randomBytes(16).toString("hex")
+    next()
+  })
+
+  app.use(
+    helmet({
+      crossOriginEmbedderPolicy: false,
+      contentSecurityPolicy: {
+        directives: {
+          "connect-src": MODE === "development" ? ["ws:", "'self'"] : null,
+          "font-src": ["'self'"],
+          "frame-src": ["'self'"],
+          "img-src": ["'self'", "data:"],
+          "media-src": ["'self'", "data:", "blob:"],
+          "script-src": [
+            "'strict-dynamic'",
+            "'unsafe-eval'",
+            "'self'",
+            // @ts-expect-error middleware is the worst
+            (req, res) => `'nonce-${res.locals.cspNonce}'`,
+          ],
+          "upgrade-insecure-requests": null,
+        },
+      },
+    }),
+  )
+
   await payload.init({
     express: app,
     mongoURL: MONGODB_URL,
@@ -150,40 +181,33 @@ async function start() {
 
   app.use(payload.authenticate)
 
-  app.all(
-    "*",
-    ENVIRONMENT === "development"
-      ? (req, res, next) => {
-          purgeRequireCache()
+  function getRequestHandlerOptions(): Parameters<typeof createRequestHandler>[0] {
+    const build = require(WEB_BUILD_DIR)
 
-          return createRequestHandler({
-            build: require(WEB_BUILD_DIR),
-            mode: ENVIRONMENT,
-            getLoadContext(req, res) {
-              return {
-                payload: req.payload,
-                user: req?.user,
-                res,
-              }
-            },
-          })(req, res, next)
-        }
-      : createRequestHandler({
-          build: require(WEB_BUILD_DIR),
-          mode: ENVIRONMENT,
-          getLoadContext(req, res) {
-            return {
-              payload: req.payload,
-              user: req?.user,
-              res,
-            }
-          },
-        }),
-  )
+    function getLoadContext(req: any, res: any) {
+      return { cspNonce: res.locals.cspNonce, payload: req.payload, user: req?.user, res }
+    }
+
+    return { build, mode: MODE, getLoadContext }
+  }
+
+  if (MODE === "production") {
+    app.all("*", createRequestHandler(getRequestHandlerOptions()))
+  } else {
+    app.all("*", (req, res, next) => {
+      purgeRequireCache()
+
+      return createRequestHandler(getRequestHandlerOptions())(req, res, next)
+    })
+  }
 
   const port = process.env.PORT || 3000
 
   app.listen(port, () => {
+    // preload the build so we're ready for the first request
+    // we want the server to start accepting requests asap, so we wait until now
+    // to preload the build
+    require(WEB_BUILD_DIR)
     console.log(`Express server listening on port ${port}`)
   })
 
@@ -209,3 +233,5 @@ function purgeRequireCache() {
     }
   }
 }
+
+/* eslint @typescript-eslint/no-var-requires: "off" */

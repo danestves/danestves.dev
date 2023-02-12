@@ -14,6 +14,7 @@
     }
   },
   "scripts": {
+    "postinstall": "patch-package --patch-dir other/patches",
     "clean": "rimraf node_modules build public/build .turbo",
     "build": "remix build",
     "dev": "remix build && run-p \"dev:*\"",
@@ -27,6 +28,7 @@
     "@remix-run/express": "1.12.0",
     "@remix-run/node": "1.12.0",
     "@remix-run/react": "1.12.0",
+    "@remix-run/server-runtime": "1.12.0",
     "escape-html": "1.0.3",
     "isbot": "3.6.5",
     "react": "18.2.0",
@@ -37,6 +39,7 @@
     "@danestves/cms": "workspace:*",
     "@danestves/eslint-config": "workspace:*",
     "@danestves/prettier-config": "workspace:*",
+    "@milahu/patch-package": "^6.4.14",
     "@remix-run/dev": "1.12.0",
     "@remix-run/eslint-config": "1.12.0",
     "@types/escape-html": "1.0.2",

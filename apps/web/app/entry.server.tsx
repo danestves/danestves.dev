@@ -1,4 +1,4 @@
-import type { EntryContext } from "@remix-run/node"
+import type { HandleDocumentRequestFunction } from "@remix-run/node"
 
 import { PassThrough } from "stream"
 
@@ -7,43 +7,52 @@ import { RemixServer } from "@remix-run/react"
 import isbot from "isbot"
 import { renderToPipeableStream } from "react-dom/server"
 
+import { NonceProvider } from "./utils/nonce-provider"
+
 const ABORT_DELAY = 5000
 
-export default function handleRequest(
-  request: Request,
-  responseStatusCode: number,
-  responseHeaders: Headers,
-  remixContext: EntryContext,
-) {
+// NOTE: we've got a patch-package on Remix that adds the loadContext argument
+// so we can access the cspNonce in the entry. Hopefully this gets supported:
+// https://github.com/remix-run/remix/discussions/4603
+type DocRequestArgs = Parameters<HandleDocumentRequestFunction>
+
+export default function handleRequest(...args: DocRequestArgs) {
+  const [request, responseStatusCode, responseHeaders, remixContext, loadContext] = args
   const callbackName = isbot(request.headers.get("user-agent")) ? "onAllReady" : "onShellReady"
+  const nonce = loadContext.cspNonce ? String(loadContext.cspNonce) : undefined
 
   return new Promise((resolve, reject) => {
     let didError = false
 
-    const { pipe, abort } = renderToPipeableStream(<RemixServer context={remixContext} url={request.url} />, {
-      [callbackName]: () => {
-        const body = new PassThrough()
+    const { pipe, abort } = renderToPipeableStream(
+      <NonceProvider value={nonce}>
+        <RemixServer abortDelay={ABORT_DELAY} context={remixContext} url={request.url} />
+      </NonceProvider>,
+      {
+        [callbackName]: () => {
+          const body = new PassThrough()
 
-        responseHeaders.set("Content-Type", "text/html")
+          responseHeaders.set("Content-Type", "text/html")
 
-        resolve(
-          new Response(body, {
-            headers: responseHeaders,
-            status: didError ? 500 : responseStatusCode,
-          }),
-        )
+          resolve(
+            new Response(body, {
+              headers: responseHeaders,
+              status: didError ? 500 : responseStatusCode,
+            }),
+          )
 
-        pipe(body)
+          pipe(body)
+        },
+        onShellError: (err: unknown) => {
+          reject(err)
+        },
+        onError: (error: unknown) => {
+          didError = true
+
+          console.error(error)
+        },
       },
-      onShellError: (err: unknown) => {
-        reject(err)
-      },
-      onError: (error: unknown) => {
-        didError = true
-
-        console.error(error)
-      },
-    })
+    )
 
     setTimeout(abort, ABORT_DELAY)
   })
