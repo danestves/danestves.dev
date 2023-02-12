@@ -3,6 +3,7 @@
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
+      "inputs": ["src/**", "public/**", "package.json", "tsconfig.json"],
       "outputs": ["dist/**", "build/**", "public/**"]
     },
     "dev": {
