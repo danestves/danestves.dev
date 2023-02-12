@@ -54,9 +54,11 @@ COPY --from=deps /srv/app/packages/eslint-config/node_modules /srv/app/packages/
 COPY --from=deps /srv/app/packages/prettier-config/node_modules /srv/app/packages/prettier-config/node_modules
 
 ARG TURBO_TEAM
+RUN echo "TURBO_TEAM=$TURBO_TEAM"
 ENV TURBO_TEAM=$TURBO_TEAM
- 
+
 ARG TURBO_TOKEN
+RUN echo "TURBO_TOKEN=$TURBO_TOKEN"
 ENV TURBO_TOKEN=$TURBO_TOKEN
 
 ADD . .
