@@ -5,12 +5,6 @@ FROM node:18-alpine as base
 ENV NODE_ENV production
 ENV CI true
 
-ARG TURBO_TOKEN
-ARG TURBO_TEAM
-
-ENV TURBO_TOKEN=$TURBO_TOKEN
-ENV TURBO_TEAM=$TURBO_TEAM
-
 # install pnpm
 RUN apk add --no-cache libc6-compat
 RUN npm install -g pnpm turbo dotenv-cli
@@ -59,8 +53,14 @@ COPY --from=deps /srv/app/apps/web/node_modules /srv/app/apps/web/node_modules
 COPY --from=deps /srv/app/packages/eslint-config/node_modules /srv/app/packages/eslint-config/node_modules
 COPY --from=deps /srv/app/packages/prettier-config/node_modules /srv/app/packages/prettier-config/node_modules
 
+ARG TURBO_TEAM
+ENV TURBO_TEAM=$TURBO_TEAM
+ 
+ARG TURBO_TOKEN
+ENV TURBO_TOKEN=$TURBO_TOKEN
+
 ADD . .
-RUN pnpm build
+RUN turbo run build
 
 # Finally, build the production image with minimal footprint
 FROM base
