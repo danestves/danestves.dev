@@ -2,7 +2,6 @@ import crypto from "node:crypto"
 import fs from "node:fs"
 import path from "node:path"
 
-import { payload } from "@danestves/cms"
 import { createRequestHandler } from "@danestves/web/express"
 import compression from "compression"
 import express from "express"
@@ -20,8 +19,6 @@ const primaryHost = "danestves.com"
 const getHost = (req: { get: (key: string) => string | undefined }) =>
   req.get("X-Forwarded-Host") ?? req.get("host") ?? ""
 
-const MONGODB_URL = process.env.MONGODB_URL ?? ""
-const PAYLOADCMS_SECRET = process.env.PAYLOADCMS_SECRET ?? ""
 const MODE = process.env.NODE_ENV
 
 const WEB_BUILD_DIR = path.join(__dirname, "../../web/build")
@@ -147,15 +144,17 @@ async function start() {
     next()
   })
 
+  const defaultConnectSrc = ["api.github.com"]
   app.use(
     helmet({
       crossOriginEmbedderPolicy: false,
       contentSecurityPolicy: {
         directives: {
-          "connect-src": MODE === "development" ? ["ws:", "'self'"] : null,
-          "font-src": ["'self'"],
+          "connect-src": MODE === "development" ? ["ws:", "'self'", ...defaultConnectSrc] : [...defaultConnectSrc],
+          "form-action": ["'self'", "github.com"],
+          "font-src": ["'self'", "fonts.googleapis.com", "fonts.gstatic.com"],
           "frame-src": ["'self'"],
-          "img-src": ["'self'", "data:"],
+          "img-src": ["'self'", "data:", "avatars.githubusercontent.com"],
           "media-src": ["'self'", "data:", "blob:"],
           "script-src": [
             "'strict-dynamic'",
@@ -170,22 +169,11 @@ async function start() {
     }),
   )
 
-  await payload.init({
-    express: app,
-    mongoURL: MONGODB_URL,
-    secret: PAYLOADCMS_SECRET,
-    onInit: () => {
-      payload.logger.info(`🐰 Payload Admin URL: ${payload.getAdminURL()}`)
-    },
-  })
-
-  app.use(payload.authenticate)
-
   function getRequestHandlerOptions(): Parameters<typeof createRequestHandler>[0] {
     const build = require(WEB_BUILD_DIR)
 
-    function getLoadContext(req: any, res: any) {
-      return { cspNonce: res.locals.cspNonce, payload: req.payload, user: req?.user, res }
+    function getLoadContext(_req: any, res: any) {
+      return { cspNonce: res.locals.cspNonce, res }
     }
 
     return { build, mode: MODE, getLoadContext }

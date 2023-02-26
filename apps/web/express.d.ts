@@ -1,7 +1,5 @@
-import type { PayloadRequest } from "@danestves/cms/types"
 import type { ServerBuild } from "@remix-run/node"
 
-export type GetLoadContextFunction = (req: PayloadRequest, res: Express.Response) => RemixRequestContext
 export type RequestHandler = (req: Express.Request, res: Express.Response, next: Express.NextFunction) => Promise<void>
 
 declare module "@remix-run/express" {
@@ -11,7 +9,7 @@ declare module "@remix-run/express" {
     mode,
   }: {
     build: ServerBuild
-    getLoadContext?: GetLoadContextFunction
+    getLoadContext?: any
     mode?: string
   }): RequestHandler
 }
