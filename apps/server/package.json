@@ -8,7 +8,7 @@
     "clean": "rimraf node_modules build dist .turbo",
     "copyfiles": "copyfiles -u 1 \"src/**/*.txt\" dist/",
     "dev": "cross-env NODE_ENV=development nodemon",
-    "serve": "cross-env NODE_ENV=production node --conditions=serve --require ./node_modules/dotenv/config dist/index.js"
+    "serve": "cross-env NODE_ENV=production node --require ./node_modules/dotenv/config ./dist/index.js"
   },
   "prettier": "@danestves/prettier-config",
   "eslintConfig": {
