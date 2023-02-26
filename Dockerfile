@@ -72,7 +72,6 @@ COPY --from=production-deps /srv/app/node_modules /srv/app/node_modules
 COPY --from=production-deps /srv/app/apps/server/node_modules /srv/app/apps/server/node_modules
 COPY --from=production-deps /srv/app/apps/web/node_modules /srv/app/apps/web/node_modules
 
-COPY --from=build /srv/app/apps/server/build /srv/app/apps/server/build
 COPY --from=build /srv/app/apps/web/build /srv/app/apps/web/build
 COPY --from=build /srv/app/apps/web/public /srv/app/apps/web/public
 COPY --from=build /srv/app/apps/web/express.js /srv/app/apps/web/express.js
