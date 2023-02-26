@@ -8,7 +8,7 @@
     "clean": "rimraf node_modules build dist .turbo",
     "copyfiles": "copyfiles -u 1 \"src/**/*.txt\" dist/",
     "dev": "cross-env NODE_ENV=development nodemon",
-    "serve": "cross-env NODE_ENV=production node --conditions=serve dist/index.js"
+    "serve": "cross-env NODE_ENV=production node --conditions=serve --require ./node_modules/dotenv/config dist/index.js"
   },
   "prettier": "@danestves/prettier-config",
   "eslintConfig": {
@@ -17,6 +17,7 @@
   "dependencies": {
     "@danestves/web": "workspace:*",
     "compression": "1.7.4",
+    "dotenv": "16.0.3",
     "express": "4.18.2",
     "express-prom-bundle": "6.6.0",
     "helmet": "6.0.1",

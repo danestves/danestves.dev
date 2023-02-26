@@ -12,9 +12,6 @@
     "dev": "dotenv -- turbo run dev --parallel",
     "serve": "dotenv -- turbo run serve"
   },
-  "dependencies": {
-    "dotenv": "16.0.3"
-  },
   "devDependencies": {
     "dotenv-cli": "7.0.0",
     "rimraf": "4.1.2",
