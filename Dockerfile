@@ -84,4 +84,4 @@ COPY --from=build /srv/app/apps/web/package.json /srv/app/apps/web/package.json
 
 EXPOSE ${PORT}
 
-CMD pnpm start
+CMD ["node", "--conditions=serve", "--require ./node_modules/dotenv/config", "apps/server/dist/index.js"]
