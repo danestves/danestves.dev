@@ -84,4 +84,4 @@ COPY --from=build /srv/app/apps/web/package.json /srv/app/apps/web/package.json
 
 EXPOSE ${PORT}
 
-CMD pnpm start
+CMD cd apps/web && pnpm serve
