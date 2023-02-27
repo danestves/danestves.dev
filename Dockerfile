@@ -84,4 +84,4 @@ COPY --from=build /srv/app/apps/web/package.json /srv/app/apps/web/package.json
 
 EXPOSE ${PORT}
 
-CMD cd apps/web && pnpm serve
+CMD ["node", "--conditions=serve", "apps/server/dist/index.js"]
