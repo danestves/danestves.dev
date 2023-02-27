@@ -144,13 +144,13 @@ async function start() {
     next()
   })
 
-  const defaultConnectSrc = ["api.github.com"]
+  const defaultConnectSrc = ["'self'", "api.github.com"]
   app.use(
     helmet({
       crossOriginEmbedderPolicy: false,
       contentSecurityPolicy: {
         directives: {
-          "connect-src": MODE === "development" ? ["ws:", "'self'", ...defaultConnectSrc] : [...defaultConnectSrc],
+          "connect-src": MODE === "development" ? ["ws:", ...defaultConnectSrc] : [...defaultConnectSrc],
           "form-action": ["'self'", "github.com"],
           "font-src": ["'self'", "fonts.googleapis.com", "fonts.gstatic.com"],
           "frame-src": ["'self'"],
