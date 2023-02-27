@@ -12,7 +12,8 @@
     "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./app/*"]
+      "~/*": ["./app/*"],
+      "keystatic.config": ["./keystatic.config.ts"]
     },
     "noEmit": true,
     "moduleResolution": "node"

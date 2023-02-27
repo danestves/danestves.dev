@@ -1,6 +1,9 @@
-import type { ActionFunction, LoaderFunction } from "@remix-run/node"
+import type { LoaderArgs } from "@remix-run/node"
 
 import { handleLoader } from "@keystatic/remix/api"
+
 import config from "keystatic.config"
 
-export const loader: LoaderFunction = (args) => handleLoader({ config }, args)
+export async function loader(args: LoaderArgs) {
+  return handleLoader({ config }, args)
+}
