@@ -8,6 +8,7 @@ import isbot from "isbot"
 import { renderToPipeableStream } from "react-dom/server"
 
 import { NonceProvider } from "./utils/nonce-provider"
+import { IsBotProvider } from "./utils/is-bot-provider"
 
 const ABORT_DELAY = 5000
 
@@ -25,9 +26,11 @@ export default function handleRequest(...args: DocRequestArgs) {
     let didError = false
 
     const { pipe, abort } = renderToPipeableStream(
-      <NonceProvider value={nonce}>
-        <RemixServer abortDelay={ABORT_DELAY} context={remixContext} url={request.url} />
-      </NonceProvider>,
+      <IsBotProvider value={isbot(request.headers.get("User-Agent"))}>
+        <NonceProvider value={nonce}>
+          <RemixServer abortDelay={ABORT_DELAY} context={remixContext} url={request.url} />
+        </NonceProvider>
+      </IsBotProvider>,
       {
         [callbackName]: () => {
           const body = new PassThrough()

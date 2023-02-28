@@ -3,6 +3,7 @@ import { LinkDescriptor } from "@remix-run/node"
 
 import tailwindStyles from "./styles/tailwind.css"
 import { useNonce } from "./utils/nonce-provider"
+import { useIsBot } from "./utils/is-bot-provider"
 
 export function links(): LinkDescriptor[] {
   return [
@@ -15,6 +16,7 @@ export function links(): LinkDescriptor[] {
 
 export default function App() {
   const nonce = useNonce()
+  const isBot = useIsBot()
 
   return (
     <html lang="en">
@@ -26,7 +28,7 @@ export default function App() {
         <Outlet />
 
         <ScrollRestoration nonce={nonce} />
-        <Scripts nonce={nonce} />
+        {!isBot ? <Scripts nonce={nonce} /> : null}
         <LiveReload nonce={nonce} />
       </body>
     </html>
