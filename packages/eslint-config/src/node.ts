@@ -4,7 +4,7 @@ import type { Linter } from "eslint"
 
 const config: Linter.Config = {
   extends: ["eslint:recommended", "plugin:import/errors", "plugin:import/warnings", "prettier"],
-  parser: "@babel/eslint-parser",
+  parser: "@typescript-eslint/parser",
   parserOptions: {
     sourceType: "module",
     requireConfigFile: false,

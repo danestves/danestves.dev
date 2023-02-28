@@ -10,11 +10,6 @@ const config: Linter.Config = {
     "plugin:jsx-a11y/recommended",
     //"plugin:tailwindcss/recommended",
   ],
-  parserOptions: {
-    babelOptions: {
-      presets: ["@babel/preset-react"],
-    },
-  },
   env: {
     browser: true,
   },
