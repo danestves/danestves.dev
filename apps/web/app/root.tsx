@@ -6,7 +6,9 @@ import { useNonce } from "./utils/nonce-provider"
 
 export function links(): LinkDescriptor[] {
   return [
+    { rel: "preload", href: "https://fonts.cdnfonts.com/css/sf-pro-display", as: "style" },
     { rel: "preload", href: tailwindStyles, as: "style" },
+    { rel: "stylesheet", href: "https://fonts.cdnfonts.com/css/sf-pro-display" },
     { rel: "stylesheet", href: tailwindStyles },
   ]
 }

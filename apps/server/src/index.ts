@@ -152,7 +152,7 @@ async function start() {
         directives: {
           "connect-src": MODE === "development" ? ["ws:", ...defaultConnectSrc] : [...defaultConnectSrc],
           "form-action": ["'self'", "github.com"],
-          "font-src": ["'self'", "fonts.googleapis.com", "fonts.gstatic.com"],
+          "font-src": ["'self'", "fonts.cdnfonts.com", "fonts.googleapis.com", "fonts.gstatic.com"],
           "frame-src": ["'self'"],
           "img-src": ["'self'", "data:", "avatars.githubusercontent.com"],
           "media-src": ["'self'", "data:", "blob:"],

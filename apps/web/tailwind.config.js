@@ -10,7 +10,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: [...defaultTheme.fontFamily.sans],
+        sans: ["'SF Pro Display'", ...defaultTheme.fontFamily.sans],
       },
     },
   },
