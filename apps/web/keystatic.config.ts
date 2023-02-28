@@ -8,12 +8,15 @@ export default config({
   collections: {
     posts: collection({
       label: "Posts",
-      slugField: "slug",
+      slugField: "title",
       schema: {
-        title: fields.text({ label: "Title" }),
-        slug: fields.text({
-          label: "Slug",
-          validation: { length: { min: 4 } },
+        title: fields.slug({
+          name: {
+            label: "Title",
+          },
+          slug: {
+            label: "Slug",
+          },
         }),
         publishDate: fields.date({ label: "Publish Date" }),
         heroImage: fields.image({ label: "Hero Image" }),
