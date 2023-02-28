@@ -8,7 +8,7 @@ const config: Linter.Config = {
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
     "plugin:jsx-a11y/recommended",
-    //"plugin:tailwindcss/recommended",
+    "plugin:tailwindcss/recommended",
   ],
   env: {
     browser: true,
@@ -18,10 +18,6 @@ const config: Linter.Config = {
     react: {
       version: "detect",
     },
-    // tailwindcss: {
-    //   callees: ["classnames", "clsx", "ctl", "cx", "enter", "enterFrom", "enterTo", "leave", "leaveFrom", "leaveTo"],
-    //   whitelist: ["plyr"],
-    // },
   },
   rules: {
     "react/display-name": "off",
