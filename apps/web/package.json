@@ -25,7 +25,7 @@
     "extends": "@danestves/eslint-config/react-remix"
   },
   "dependencies": {
-    "@keystatic/core": "0.0.48",
+    "@keystatic/core": "0.0.51",
     "@keystatic/remix": "0.0.2",
     "@remix-run/express": "1.13.0",
     "@remix-run/node": "1.13.0",

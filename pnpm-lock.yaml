@@ -69,7 +69,7 @@ importers:
     specifiers:
       '@danestves/eslint-config': workspace:*
       '@danestves/prettier-config': workspace:*
-      '@keystatic/core': 0.0.48
+      '@keystatic/core': 0.0.51
       '@keystatic/remix': 0.0.2
       '@milahu/patch-package': 6.4.14
       '@remix-run/dev': 1.13.0
@@ -91,8 +91,8 @@ importers:
       react-dom: 18.2.0
       tailwindcss: ^3.2.7
     dependencies:
-      '@keystatic/core': 0.0.48_biqbaboplfbrettd7655fr4n2y
-      '@keystatic/remix': 0.0.2_cfvtk6jvwfjnf7kfmrsiwadxs4
+      '@keystatic/core': 0.0.51_biqbaboplfbrettd7655fr4n2y
+      '@keystatic/remix': 0.0.2_pnjabipcw2u32ymugiwxhcrcha
       '@remix-run/express': 1.13.0_express@4.18.2
       '@remix-run/node': 1.13.0
       '@remix-run/react': 1.13.0_biqbaboplfbrettd7655fr4n2y
@@ -1904,8 +1904,8 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
 
-  /@keystatic/core/0.0.48_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-dNvfQIHYXgpVDA+8gtujUllMwUKHwWiK5Owi2hQMpby0vO0V69wxPZ2NJl18OiHBolgxd5RHLHuS5nHtgC3PPg==}
+  /@keystatic/core/0.0.51_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-wsEBfstCCLo7A/33k83RMkjIFzNknXvBCfTT+WnRTk9sq1jf4pzVUVOHmItAlDKW5EOOsq23i6MSGOjdYjKBdw==}
     peerDependencies:
       react: ^18.2.0
       react-dom: ^18.2.0
@@ -1934,7 +1934,7 @@ packages:
       '@voussoir/badge': 0.1.0_biqbaboplfbrettd7655fr4n2y
       '@voussoir/button': 0.1.1_biqbaboplfbrettd7655fr4n2y
       '@voussoir/checkbox': 0.2.0_biqbaboplfbrettd7655fr4n2y
-      '@voussoir/combobox': 0.1.1_biqbaboplfbrettd7655fr4n2y
+      '@voussoir/combobox': 0.1.2_biqbaboplfbrettd7655fr4n2y
       '@voussoir/core': 4.0.1_biqbaboplfbrettd7655fr4n2y
       '@voussoir/dialog': 0.2.0_biqbaboplfbrettd7655fr4n2y
       '@voussoir/drag-and-drop': 0.1.0_biqbaboplfbrettd7655fr4n2y
@@ -1999,7 +1999,7 @@ packages:
       - supports-color
     dev: false
 
-  /@keystatic/remix/0.0.2_cfvtk6jvwfjnf7kfmrsiwadxs4:
+  /@keystatic/remix/0.0.2_pnjabipcw2u32ymugiwxhcrcha:
     resolution: {integrity: sha512-w6dzYivRNGZbcOwE90MUfwysr/y3aLxQGZb8nuhSJmxvHCLCxVMZvpKbaMFMLqNbVmU6BBrW9cIrtjcxCWbteA==}
     peerDependencies:
       '@keystatic/core': '*'
@@ -2008,7 +2008,7 @@ packages:
       react-dom: ^18.2.0
     dependencies:
       '@babel/runtime': 7.20.13
-      '@keystatic/core': 0.0.48_biqbaboplfbrettd7655fr4n2y
+      '@keystatic/core': 0.0.51_biqbaboplfbrettd7655fr4n2y
       '@remix-run/react': 1.13.0_biqbaboplfbrettd7655fr4n2y
       '@types/react': 18.0.28
       react: 18.2.0
@@ -4138,8 +4138,8 @@ packages:
       - react-dom
     dev: false
 
-  /@voussoir/combobox/0.1.1_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-wWAcZvSxRodwrfVTD/S5cHU8jUiHxlRFQvAcdDctVGw1YkvJ5CT5ssNwETfSvSUC8I60g0JopH3qu0V4L/mjSg==}
+  /@voussoir/combobox/0.1.2_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-kaZpWZof1x1Vnsz4arpmRnwLcBeYo8cCeUvndOfdoXok6U82YvQ4lDt0FZkJcL+svT8v0O0EzyikliLCcl2yKw==}
     engines: {node: '>= 14.13'}
     peerDependencies:
       react: ^18.2.0
