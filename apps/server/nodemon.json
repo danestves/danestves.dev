@@ -2,5 +2,5 @@
   "verbose": true,
   "ext": "ts",
   "exec": "node -r ts-node/register src/index.ts",
-  "watch": ["./src/index.ts", "../cms/src"]
+  "watch": ["./src/index.ts"]
 }
