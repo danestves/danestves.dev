@@ -30,7 +30,7 @@
   "devDependencies": {
     "@danestves/prettier-config": "workspace:*",
     "@types/eslint": "8.21.1",
-    "@types/node": "18.14.3",
+    "@types/node": "18.14.6",
     "@typescript-eslint/parser": "5.54.0",
     "typescript": "4.9.5"
   }
