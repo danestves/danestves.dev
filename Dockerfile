@@ -43,6 +43,9 @@ RUN pnpm prune --production
 # Build the app
 FROM base as build
 
+ARG COMMIT_SHA
+ENV COMMIT_SHA=$COMMIT_SHA
+
 WORKDIR /srv/app
 
 COPY --from=deps /srv/app/node_modules /srv/app/node_modules
