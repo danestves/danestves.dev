@@ -16,5 +16,5 @@
       "dependsOn": ["^serve"]
     }
   },
-  "globalEnv": ["GITHUB_TOKEN"]
+  "globalEnv": ["GITHUB_TOKEN", "COMMIT_SHA"]
 }
