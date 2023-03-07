@@ -69,7 +69,7 @@ importers:
     specifiers:
       '@danestves/eslint-config': workspace:*
       '@danestves/prettier-config': workspace:*
-      '@keystatic/core': 0.0.56
+      '@keystatic/core': 0.0.59
       '@keystatic/remix': 0.0.2
       '@milahu/patch-package': 6.4.14
       '@remix-run/dev': 1.14.0
@@ -93,8 +93,8 @@ importers:
       tailwindcss: 3.2.7
       tsx: 3.12.3
     dependencies:
-      '@keystatic/core': 0.0.56_biqbaboplfbrettd7655fr4n2y
-      '@keystatic/remix': 0.0.2_cegdllx5gdy3pqfq2yqdslb2i4
+      '@keystatic/core': 0.0.59_biqbaboplfbrettd7655fr4n2y
+      '@keystatic/remix': 0.0.2_wcl5gvsn7dtv6tiaf6sblwhnt4
       '@remix-run/express': 1.14.0_express@4.18.2
       '@remix-run/node': 1.14.0
       '@remix-run/react': 1.14.0_biqbaboplfbrettd7655fr4n2y
@@ -2127,8 +2127,8 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
 
-  /@keystatic/core/0.0.56_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-82cI3fZhB1ci43GulJbI+7hpqbpx09ZZqHXClmDYRRRJuh98jFg3ya5/2IAntVgThSFU+OkBDbuHac9wzQIk8w==}
+  /@keystatic/core/0.0.59_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-Jz4nJbAgKT7OzVJDJlbebeqscuS2NflOnO8p2XJCXma3B1JdCMM5sYwfmLjPOifnbv+wsFdSsIzlB/VZdtwqbg==}
     peerDependencies:
       react: ^18.2.0
       react-dom: ^18.2.0
@@ -2206,7 +2206,7 @@ packages:
       micromark-extension-gfm-autolink-literal: 0.5.7
       micromark-extension-gfm-strikethrough: 0.6.5
       mime: 3.0.0
-      minimatch: 7.2.0
+      minimatch: 7.4.2
       pretty-format: 29.4.3
       prismjs: 1.29.0
       react: 18.2.0
@@ -2222,7 +2222,7 @@ packages:
       - supports-color
     dev: false
 
-  /@keystatic/remix/0.0.2_cegdllx5gdy3pqfq2yqdslb2i4:
+  /@keystatic/remix/0.0.2_wcl5gvsn7dtv6tiaf6sblwhnt4:
     resolution: {integrity: sha512-w6dzYivRNGZbcOwE90MUfwysr/y3aLxQGZb8nuhSJmxvHCLCxVMZvpKbaMFMLqNbVmU6BBrW9cIrtjcxCWbteA==}
     peerDependencies:
       '@keystatic/core': '*'
@@ -2231,7 +2231,7 @@ packages:
       react-dom: ^18.2.0
     dependencies:
       '@babel/runtime': 7.20.13
-      '@keystatic/core': 0.0.56_biqbaboplfbrettd7655fr4n2y
+      '@keystatic/core': 0.0.59_biqbaboplfbrettd7655fr4n2y
       '@remix-run/react': 1.14.0_biqbaboplfbrettd7655fr4n2y
       '@types/react': 18.0.28
       react: 18.2.0
@@ -8881,19 +8881,11 @@ packages:
     dependencies:
       brace-expansion: 1.1.11
 
-  /minimatch/7.2.0:
-    resolution: {integrity: sha512-rMRHmwySzopAQjmWW6TkAKCEDKNaY/HuV/c2YkWWuWnfkTwApt0V4hnYzzPnZ/5Gcd2+8MPncSyuOGPl3xPvcg==}
-    engines: {node: '>=10'}
-    dependencies:
-      brace-expansion: 2.0.1
-    dev: false
-
   /minimatch/7.4.2:
     resolution: {integrity: sha512-xy4q7wou3vUoC9k1xGTXc+awNdGaGVHtFUaey8tiX4H1QRc04DZ/rmDFwNm2EBsuYEhAZ6SgMmYf3InGY6OauA==}
     engines: {node: '>=10'}
     dependencies:
       brace-expansion: 2.0.1
-    dev: true
 
   /minimist/1.2.7:
     resolution: {integrity: sha512-bzfL1YUZsP41gmu/qjrEk0Q6i2ix/cVeAhbCbqH9u3zYutS1cLg00qhrD0M2MVdCcx4Sc0UpP2eBWo9rotpq6g==}
