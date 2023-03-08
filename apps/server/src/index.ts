@@ -66,7 +66,9 @@ async function start() {
       // console.log(`👺 disallowed cf-visitor`, req.headers) // <-- this can be kinda noisy
       // make them wait for it... Which should cost them money...
       await new Promise((resolve) => setTimeout(resolve, 90_000))
-      return res.send("Please go to https://kcd.dev instead! Ping Kent if you think you should not be seeing this...")
+      return res.send(
+        "Please go to https://danestves.com instead! Ping Kent if you think you should not be seeing this...",
+      )
     } else {
       return next()
     }
