@@ -5,6 +5,12 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**", "build/**", "public/**"]
     },
+    "lint": {
+      "outputs": []
+    },
+    "format": {
+      "outputs": []
+    },
     "dev": {
       "cache": false
     },

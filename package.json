@@ -10,7 +10,9 @@
     "build": "dotenv -- turbo run build",
     "clean": "turbo run clean && rimraf node_modules",
     "dev": "dotenv -- turbo run dev --parallel",
-    "serve": "dotenv -- turbo run serve"
+    "serve": "dotenv -- turbo run serve",
+    "lint": "turbo run lint",
+    "format": "turbo run format"
   },
   "devDependencies": {
     "dotenv-cli": "7.0.0",

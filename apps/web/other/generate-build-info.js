@@ -1,5 +1,6 @@
-const path = require("path")
 const fs = require("fs")
+const path = require("path")
+
 const fetch = require("node-fetch")
 
 const commit = process.env.COMMIT_SHA
