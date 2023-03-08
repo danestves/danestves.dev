@@ -18,7 +18,8 @@
     "clean": "rimraf node_modules build public/build .turbo",
     "build": "remix build && tsx ./other/generate-build-info",
     "dev": "remix build && run-p \"dev:*\"",
-    "dev:remix": "remix dev"
+    "dev:remix": "remix dev",
+    "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint --ext js,jsx,ts,tsx --resolve-plugins-relative-to ."
   },
   "prettier": "@danestves/prettier-config",
   "eslintConfig": {

@@ -3,8 +3,8 @@ import "@rushstack/eslint-patch/modern-module-resolution"
 import type { Linter } from "eslint"
 
 const config: Linter.Config = {
-  extends: ["eslint:recommended", "plugin:import/errors", "plugin:import/warnings", "prettier"],
-  parser: "@typescript-eslint/parser",
+  extends: ["eslint:recommended", "prettier"],
+  parser: "@babel/eslint-parser",
   parserOptions: {
     sourceType: "module",
     requireConfigFile: false,
@@ -15,7 +15,7 @@ const config: Linter.Config = {
     es6: true,
     node: true,
   },
-  plugins: ["node", "import"],
+  plugins: ["node"],
   settings: {
     "import/ignore": ["node_modules", "\\.(css|md|svg|json)$"],
     "import/resolver": {
@@ -78,7 +78,6 @@ const config: Linter.Config = {
       },
       rules: {
         "@typescript-eslint/ban-ts-comment": "off",
-        "@typescript-eslint/consistent-type-imports": "error",
         "@typescript-eslint/no-empty-function": "off",
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/no-non-null-assertion": "off",
