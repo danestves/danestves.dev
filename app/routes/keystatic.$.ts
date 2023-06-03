@@ -1,4 +1,4 @@
 import { makePage } from '@keystatic/remix/ui'
-import config from 'keystatic.config'
+import keystaticConfig from 'keystatic.config'
 
-export default makePage(config)
+export default makePage(keystaticConfig)

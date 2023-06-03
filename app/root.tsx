@@ -5,7 +5,6 @@ import {
 	type LinksFunction,
 } from '@remix-run/node'
 import {
-	Link,
 	Links,
 	LiveReload,
 	Meta,
