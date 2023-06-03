@@ -1,11 +1,9 @@
-import { flatRoutes } from 'remix-flat-routes'
-
 /**
  * @type {import('@remix-run/dev').AppConfig}
  */
 export default {
 	cacheDirectory: './node_modules/.cache/remix',
-	ignoredRouteFiles: ['**/*'],
+	ignoredRouteFiles: ['**/.*'],
 	serverModuleFormat: 'esm',
 	serverPlatform: 'node',
 	tailwind: true,
@@ -17,15 +15,5 @@ export default {
 		v2_normalizeFormMethod: true,
 		v2_routeConvention: true,
 		unstable_dev: true,
-	},
-	routes: async defineRoutes => {
-		return flatRoutes('routes', defineRoutes, {
-			ignoredRouteFiles: [
-				'.*',
-				'**/*.css',
-				'**/*.test.{js,jsx,ts,tsx}',
-				'**/__*.*',
-			],
-		})
 	},
 }
