@@ -1,18 +1,9 @@
+import type { DataFunctionArgs, LinksFunction } from '@remix-run/node'
+
 import { cssBundleHref } from '@remix-run/css-bundle'
-import {
-	json,
-	type DataFunctionArgs,
-	type LinksFunction,
-} from '@remix-run/node'
-import {
-	Links,
-	LiveReload,
-	Meta,
-	Outlet,
-	Scripts,
-	ScrollRestoration,
-	useLoaderData,
-} from '@remix-run/react'
+import { json } from '@remix-run/node'
+import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from '@remix-run/react'
+
 import tailwindStylesheetUrl from './styles/tailwind.css'
 import { ClientHintCheck, getHints } from './utils/client-hints.tsx'
 import { getEnv } from './utils/env.server.ts'

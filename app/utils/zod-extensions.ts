@@ -5,7 +5,5 @@ export const checkboxSchema = (msgWhenRequired?: string) => {
 		.literal('on')
 		.optional()
 		.transform(value => value === 'on')
-	return msgWhenRequired
-		? transformedValue.refine(_ => _, { message: msgWhenRequired })
-		: transformedValue
+	return msgWhenRequired ? transformedValue.refine(_ => _, { message: msgWhenRequired }) : transformedValue
 }

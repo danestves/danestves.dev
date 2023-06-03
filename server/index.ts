@@ -1,21 +1,26 @@
-import path from 'path'
-import { fileURLToPath } from 'url'
-import express from 'express'
-import chokidar from 'chokidar'
-import compression from 'compression'
-import morgan from 'morgan'
+import type { RequestHandler } from '@remix-run/express'
+import type { ServerBuild } from '@remix-run/node'
+
+import crypto from 'node:crypto'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+import { createRequestHandler } from '@remix-run/express'
+import { broadcastDevReady } from '@remix-run/node'
 import address from 'address'
-import closeWithGrace from 'close-with-grace'
-import helmet from 'helmet'
-import crypto from 'crypto'
-import { type RequestHandler, createRequestHandler } from '@remix-run/express'
-import { type ServerBuild, broadcastDevReady } from '@remix-run/node'
-import getPort, { portNumbers } from 'get-port'
 import chalk from 'chalk'
+import chokidar from 'chokidar'
+import closeWithGrace from 'close-with-grace'
+import compression from 'compression'
+import express from 'express'
+import getPort, { portNumbers } from 'get-port'
+import helmet from 'helmet'
+import morgan from 'morgan'
 
 // @ts-ignore - this file may not exist if you haven't built yet, but it will
 // definitely exist by the time the dev or prod server actually runs.
 import * as remixBuild from '../build/index.js'
+
 const MODE = process.env.NODE_ENV
 
 const BUILD_PATH = '../build/index.js'
@@ -58,15 +63,12 @@ app.use(compression())
 app.disable('x-powered-by')
 
 // Remix fingerprints its assets so we can cache forever.
-app.use(
-	'/build',
-	express.static('public/build', { immutable: true, maxAge: '1y' }),
-)
+app.use('/build', express.static('public/build', { immutable: true, maxAge: '1y' }))
 // Everything else (like favicon.ico) is cached for an hour. You may want to be
 // more aggressive with this caching.
 app.use(express.static('public', { maxAge: '1h' }))
 
-morgan.token('url', (req, res) => decodeURIComponent(req.url ?? ''))
+morgan.token('url', (req, _res) => decodeURIComponent(req.url ?? ''))
 app.use(morgan('tiny'))
 
 app.use((_, res, next) => {
@@ -81,15 +83,8 @@ app.use(
 		crossOriginEmbedderPolicy: false,
 		contentSecurityPolicy: {
 			directives: {
-				'connect-src':
-					MODE === 'development'
-						? ['ws:', ...defaultConnectSrc]
-						: [...defaultConnectSrc],
-				'font-src': [
-					"'self'",
-					'https://fonts.cdnfonts.com',
-					'https://fonts.gstatic.com',
-				],
+				'connect-src': MODE === 'development' ? ['ws:', ...defaultConnectSrc] : [...defaultConnectSrc],
+				'font-src': ["'self'", 'https://fonts.cdnfonts.com', 'https://fonts.gstatic.com'],
 				'frame-src': ["'self'"],
 				'img-src': ["'self'", 'https://avatars.githubusercontent.com'],
 				'form-action': ["'self'", 'https://github.com'],
@@ -118,9 +113,7 @@ function getRequestHandler(build: ServerBuild): RequestHandler {
 
 app.all(
 	'*',
-	process.env.NODE_ENV === 'development'
-		? (...args) => getRequestHandler(devBuild)(...args)
-		: getRequestHandler(build),
+	process.env.NODE_ENV === 'development' ? (...args) => getRequestHandler(devBuild)(...args) : getRequestHandler(build),
 )
 
 const desiredPort = Number(process.env.PORT || 3000)
@@ -130,19 +123,10 @@ const portToUse = await getPort({
 
 const server = app.listen(portToUse, () => {
 	const addy = server.address()
-	const portUsed =
-		desiredPort === portToUse
-			? desiredPort
-			: addy && typeof addy === 'object'
-			? addy.port
-			: 0
+	const portUsed = desiredPort === portToUse ? desiredPort : addy && typeof addy === 'object' ? addy.port : 0
 
 	if (portUsed !== desiredPort) {
-		console.warn(
-			chalk.yellow(
-				`⚠️  Port ${desiredPort} is not available, using ${portUsed} instead.`,
-			),
-		)
+		console.warn(chalk.yellow(`⚠️  Port ${desiredPort} is not available, using ${portUsed} instead.`))
 	}
 	console.log(`🚀  We have liftoff!`)
 	const localUrl = `http://localhost:${portUsed}`

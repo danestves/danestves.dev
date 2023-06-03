@@ -1,8 +1,12 @@
-import { Response, type HandleDocumentRequestFunction } from '@remix-run/node'
+import type { HandleDocumentRequestFunction } from '@remix-run/node'
+
+import { PassThrough } from 'stream'
+
+import { Response } from '@remix-run/node'
 import { RemixServer } from '@remix-run/react'
 import isbot from 'isbot'
 import { renderToPipeableStream } from 'react-dom/server'
-import { PassThrough } from 'stream'
+
 import { getEnv, init } from './utils/env.server.ts'
 import { NonceProvider } from './utils/nonce-provider.ts'
 
@@ -14,19 +18,11 @@ global.ENV = getEnv()
 type DocRequestArgs = Parameters<HandleDocumentRequestFunction>
 
 export default async function handleRequest(...args: DocRequestArgs) {
-	const [
-		request,
-		responseStatusCode,
-		responseHeaders,
-		remixContext,
-		loadContext,
-	] = args
+	const [request, responseStatusCode, responseHeaders, remixContext, loadContext] = args
 	responseHeaders.set('fly-region', process.env.FLY_REGION ?? 'unknown')
 	responseHeaders.set('fly-app', process.env.FLY_APP_NAME ?? 'unknown')
 
-	const callbackName = isbot(request.headers.get('user-agent'))
-		? 'onAllReady'
-		: 'onShellReady'
+	const callbackName = isbot(request.headers.get('user-agent')) ? 'onAllReady' : 'onShellReady'
 
 	const nonce = String(loadContext.cspNonce) ?? undefined
 	return new Promise((resolve, reject) => {

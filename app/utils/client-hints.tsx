@@ -3,6 +3,7 @@
  * are needed by the server, but are only known by the browser.
  */
 import * as React from 'react'
+
 import { useRequestInfo } from './request-info.ts'
 
 export const clientHints = {
@@ -56,9 +57,7 @@ export function getHints(request?: Request) {
 			return acc
 		},
 		{} as {
-			[name in ClientHintNames]: ReturnType<
-				(typeof clientHints)[name]['transform']
-			>
+			[name in ClientHintNames]: ReturnType<(typeof clientHints)[name]['transform']>
 		},
 	)
 }
@@ -80,9 +79,7 @@ export function ClientHintCheck({ nonce }: { nonce: string }) {
 	React.useEffect(() => {
 		const themeQuery = window.matchMedia('(prefers-color-scheme: dark)')
 		function handleThemeChange() {
-			document.cookie = `${clientHints.theme.cookieName}=${
-				themeQuery.matches ? 'dark' : 'light'
-			}`
+			document.cookie = `${clientHints.theme.cookieName}=${themeQuery.matches ? 'dark' : 'light'}`
 		}
 		themeQuery.addEventListener('change', handleThemeChange)
 		return () => {

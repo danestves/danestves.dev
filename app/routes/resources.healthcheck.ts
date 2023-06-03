@@ -1,9 +1,9 @@
 import type { DataFunctionArgs } from '@remix-run/node'
+
 import { reader } from '~/utils/reader.server.ts'
 
 export async function loader({ request }: DataFunctionArgs) {
-	const host =
-		request.headers.get('X-Forwarded-Host') ?? request.headers.get('host')
+	const host = request.headers.get('X-Forwarded-Host') ?? request.headers.get('host')
 
 	try {
 		const url = new URL('/', `http://${host}`)

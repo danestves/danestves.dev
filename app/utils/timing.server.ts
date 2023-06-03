@@ -1,9 +1,6 @@
-import { type CreateReporter } from 'cachified'
+import type { CreateReporter } from 'cachified'
 
-export type Timings = Record<
-	string,
-	Array<{ desc?: string; type: string; time: number }>
->
+export type Timings = Record<string, Array<{ desc?: string; type: string; time: number }>>
 
 function createTimer(type: string, desc?: string) {
 	const start = performance.now()
@@ -45,42 +42,28 @@ export async function time<ReturnType>(
 export function getServerTimeHeader(timings: Timings) {
 	return Object.entries(timings)
 		.map(([key, timingInfos]) => {
-			const dur = timingInfos
-				.reduce((acc, timingInfo) => acc + timingInfo.time, 0)
-				.toFixed(1)
+			const dur = timingInfos.reduce((acc, timingInfo) => acc + timingInfo.time, 0).toFixed(1)
 			const desc = timingInfos
 				.map(t => t.desc)
 				.filter(Boolean)
 				.join(' & ')
-			return [
-				key.replaceAll(/(:| |@|=|;|,)/g, '_'),
-				desc ? `desc=${JSON.stringify(desc)}` : null,
-				`dur=${dur}`,
-			]
+			return [key.replaceAll(/(:| |@|=|;|,)/g, '_'), desc ? `desc=${JSON.stringify(desc)}` : null, `dur=${dur}`]
 				.filter(Boolean)
 				.join(';')
 		})
 		.join(',')
 }
 
-export function cachifiedTimingReporter<Value>(
-	timings?: Timings,
-): undefined | CreateReporter<Value> {
+export function cachifiedTimingReporter<Value>(timings?: Timings): undefined | CreateReporter<Value> {
 	if (!timings) return
 
 	return ({ key }) => {
-		const cacheRetrievalTimer = createTimer(
-			`cache:${key}`,
-			`${key} cache retrieval`,
-		)
+		const cacheRetrievalTimer = createTimer(`cache:${key}`, `${key} cache retrieval`)
 		let getFreshValueTimer: ReturnType<typeof createTimer> | undefined
 		return event => {
 			switch (event.name) {
 				case 'getFreshValueStart':
-					getFreshValueTimer = createTimer(
-						`getFreshValue:${key}`,
-						`request forced to wait for a fresh ${key} value`,
-					)
+					getFreshValueTimer = createTimer(`getFreshValue:${key}`, `request forced to wait for a fresh ${key} value`)
 					break
 				case 'getFreshValueSuccess':
 					getFreshValueTimer?.end(timings)

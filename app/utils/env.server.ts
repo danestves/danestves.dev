@@ -1,13 +1,6 @@
 import invariant from 'tiny-invariant'
 
-const requiredServerEnvs = ['NODE_ENV', 'SESSION_SECRET'] as const
-
-declare global {
-	namespace NodeJS {
-		interface ProcessEnv
-			extends Record<(typeof requiredServerEnvs)[number], string> {}
-	}
-}
+export const requiredServerEnvs = ['NODE_ENV', 'SESSION_SECRET'] as const
 
 export function init() {
 	for (const env of requiredServerEnvs) {
@@ -35,6 +28,7 @@ export function getEnv() {
 type ENV = ReturnType<typeof getEnv>
 
 declare global {
+	// eslint-disable-next-line no-var
 	var ENV: ENV
 	interface Window {
 		ENV: ENV

@@ -1,10 +1,6 @@
 export function Spinner({ showSpinner }: { showSpinner: boolean }) {
 	return (
-		<div
-			className={`absolute right-0 top-[6px] transition-opacity ${
-				showSpinner ? 'opacity-100' : 'opacity-0'
-			}`}
-		>
+		<div className={`absolute right-0 top-[6px] transition-opacity ${showSpinner ? 'opacity-100' : 'opacity-0'}`}>
 			<svg
 				className="-ml-1 mr-3 h-5 w-5 animate-spin"
 				xmlns="http://www.w3.org/2000/svg"
@@ -14,14 +10,7 @@ export function Spinner({ showSpinner }: { showSpinner: boolean }) {
 				height="1em"
 			>
 				<title>Loading</title>
-				<circle
-					className="opacity-25"
-					cx={12}
-					cy={12}
-					r={10}
-					stroke="currentColor"
-					strokeWidth={4}
-				/>
+				<circle className="opacity-25" cx={12} cy={12} r={10} stroke="currentColor" strokeWidth={4} />
 				<path
 					className="opacity-75"
 					fill="currentColor"
