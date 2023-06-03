@@ -19,10 +19,12 @@ import morgan from 'morgan'
 
 // @ts-ignore - this file may not exist if you haven't built yet, but it will
 // definitely exist by the time the dev or prod server actually runs.
+// eslint-disable-next-line import/no-unresolved
 import * as remixBuild from '../build/index.js'
 
 const MODE = process.env.NODE_ENV
 
+// eslint-disable-next-line import/no-unresolved
 const BUILD_PATH = '../build/index.js'
 
 const build = remixBuild as unknown as ServerBuild
