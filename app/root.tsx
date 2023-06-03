@@ -22,7 +22,10 @@ import { useNonce } from './utils/nonce-provider.ts'
 
 export const links: LinksFunction = () => {
 	return [
-		{ rel: 'stylesheet', href: '/fonts/nunito-sans/font.css' },
+		{
+			rel: 'stylesheet',
+			href: 'https://fonts.cdnfonts.com/css/sf-pro-display',
+		},
 		{ rel: 'stylesheet', href: tailwindStylesheetUrl },
 		cssBundleHref ? { rel: 'stylesheet', href: cssBundleHref } : null,
 	].filter(Boolean)

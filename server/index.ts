@@ -80,7 +80,7 @@ app.use(
 		contentSecurityPolicy: {
 			directives: {
 				'connect-src': MODE === 'development' ? ['ws:', "'self'"] : null,
-				'font-src': ["'self'"],
+				'font-src': ["'self'", 'https://fonts.cdnfonts.com'],
 				'frame-src': ["'self'"],
 				'img-src': ["'self'"],
 				'script-src': [

@@ -35,7 +35,7 @@ export default {
 				},
 			},
 			fontFamily: {
-				sans: ['Nunito Sans', ...defaultTheme.fontFamily.sans],
+				sans: ['SF Pro Display', ...defaultTheme.fontFamily.sans],
 			},
 			fontSize: {
 				// 1rem = 16px
