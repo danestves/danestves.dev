@@ -74,15 +74,25 @@ app.use((_, res, next) => {
 	next()
 })
 
+const defaultConnectSrc = ['https://api.github.com']
+
 app.use(
 	helmet({
 		crossOriginEmbedderPolicy: false,
 		contentSecurityPolicy: {
 			directives: {
-				'connect-src': MODE === 'development' ? ['ws:', "'self'"] : null,
-				'font-src': ["'self'", 'https://fonts.cdnfonts.com'],
+				'connect-src':
+					MODE === 'development'
+						? ['ws:', "'self'", ...defaultConnectSrc]
+						: [...defaultConnectSrc],
+				'font-src': [
+					"'self'",
+					'https://fonts.cdnfonts.com',
+					'https://fonts.gstatic.com',
+				],
 				'frame-src': ["'self'"],
-				'img-src': ["'self'"],
+				'img-src': ["'self'", 'https://avatars.githubusercontent.com'],
+				'form-action': ["'self'", 'https://github.com'],
 				'script-src': [
 					"'strict-dynamic'",
 					"'self'",

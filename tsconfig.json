@@ -16,7 +16,8 @@
 		"forceConsistentCasingInFileNames": true,
 		"baseUrl": ".",
 		"paths": {
-			"~/*": ["./app/*"]
+			"~/*": ["./app/*"],
+			"keystatic.config": ["./keystatic.config.ts"]
 		},
 		"skipLibCheck": true,
 		"allowImportingTsExtensions": true,
