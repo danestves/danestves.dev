@@ -74,7 +74,7 @@ app.use((_, res, next) => {
 	next()
 })
 
-const defaultConnectSrc = ['https://api.github.com']
+const defaultConnectSrc = ["'self'", 'https://api.github.com']
 
 app.use(
 	helmet({
@@ -83,7 +83,7 @@ app.use(
 			directives: {
 				'connect-src':
 					MODE === 'development'
-						? ['ws:', "'self'", ...defaultConnectSrc]
+						? ['ws:', ...defaultConnectSrc]
 						: [...defaultConnectSrc],
 				'font-src': [
 					"'self'",
