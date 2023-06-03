@@ -1,0 +1,9 @@
+node_modules
+
+/build
+/public/build
+/server-build
+.env
+
+package.json
+package-lock.json
