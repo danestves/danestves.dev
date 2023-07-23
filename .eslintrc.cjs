@@ -52,46 +52,4 @@ module.exports = {
 			},
 		],
 	},
-	overrides: [
-		{
-			files: ['**/*.ts?(x)'],
-			extends: [
-				'plugin:@typescript-eslint/eslint-recommended',
-				'plugin:@typescript-eslint/recommended',
-				'plugin:import/typescript',
-			],
-			parser: '@typescript-eslint/parser',
-			parserOptions: {
-				sourceType: 'module',
-				ecmaVersion: 'latest',
-				warnOnUnsupportedTypeScriptVersion: true,
-			},
-			plugins: ['@typescript-eslint'],
-			settings: {
-				'import/parsers': {
-					'@typescript-eslint/parser': ['.ts', '.tsx', '.d.ts'],
-				},
-				'import/resolver': {
-					'eslint-import-resolver-typescript': {
-						alwaysTryTypes: true,
-					},
-				},
-			},
-			rules: {
-				'@typescript-eslint/ban-ts-comment': 'off',
-				'@typescript-eslint/no-empty-function': 'off',
-				'@typescript-eslint/no-explicit-any': 'off',
-				'@typescript-eslint/no-non-null-assertion': 'off',
-				'@typescript-eslint/no-unused-vars': [
-					'warn',
-					{
-						ignoreRestSiblings: true,
-						argsIgnorePattern: '^_',
-						varsIgnorePattern: '^_',
-						caughtErrorsIgnorePattern: '^_',
-					},
-				],
-			},
-		},
-	],
 }
