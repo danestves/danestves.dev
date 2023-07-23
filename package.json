@@ -10,7 +10,7 @@
     "build:server": "tsx ./other/build-server.ts",
     "dev": "remix dev -c \"node ./server/dev-server.js\" --no-restart",
     "format": "prettier --write .",
-    "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
+    "lint": "eslint .",
     "start": "cross-env NODE_ENV=production node .",
     "typecheck": "tsc",
     "validate": "run-p \"test -- --run\" lint typecheck"
@@ -70,6 +70,7 @@
     "@types/node": "20.4.4",
     "@types/react": "18.2.15",
     "@types/react-dom": "18.2.7",
+    "@typescript-eslint/parser": "6.1.0",
     "autoprefixer": "10.4.14",
     "cookie": "0.5.0",
     "dotenv": "16.3.1",
