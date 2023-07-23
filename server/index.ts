@@ -86,7 +86,7 @@ app.use(
 		contentSecurityPolicy: {
 			directives: {
 				'connect-src': MODE === 'development' ? ['ws:', ...defaultConnectSrc] : [...defaultConnectSrc],
-				'font-src': ["'self'", 'https://fonts.cdnfonts.com', 'https://fonts.gstatic.com'],
+				'font-src': ["'self'", 'https://fonts.gstatic.com'],
 				'frame-src': ["'self'"],
 				'img-src': ["'self'", 'https://avatars.githubusercontent.com'],
 				'form-action': ["'self'", 'https://github.com'],

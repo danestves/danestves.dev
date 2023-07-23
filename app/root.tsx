@@ -1,9 +1,10 @@
-import type { DataFunctionArgs, LinksFunction } from '@remix-run/node'
+import type { DataFunctionArgs, HeadersFunction, LinksFunction } from '@remix-run/node'
 
 import { cssBundleHref } from '@remix-run/css-bundle'
 import { json } from '@remix-run/node'
 import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from '@remix-run/react'
 
+import fontStylestylesheetUrl from './styles/font.css'
 import tailwindStylesheetUrl from './styles/tailwind.css'
 import { ClientHintCheck, getHints } from './utils/client-hints.tsx'
 import { getEnv } from './utils/env.server.ts'
@@ -12,10 +13,11 @@ import { useNonce } from './utils/nonce-provider.ts'
 
 export const links: LinksFunction = () => {
 	return [
-		{
-			rel: 'stylesheet',
-			href: 'https://fonts.cdnfonts.com/css/sf-pro-display',
-		},
+		// Preload CSS as a resource to avoid render blocking
+		{ rel: 'preload', href: fontStylestylesheetUrl, as: 'style' },
+		{ rel: 'preload', href: tailwindStylesheetUrl, as: 'style' },
+		cssBundleHref ? { rel: 'preload', href: cssBundleHref, as: 'style' } : null,
+		{ rel: 'stylesheet', href: fontStylestylesheetUrl },
 		{ rel: 'stylesheet', href: tailwindStylesheetUrl },
 		cssBundleHref ? { rel: 'stylesheet', href: cssBundleHref } : null,
 	].filter(Boolean)
@@ -30,6 +32,13 @@ export async function loader({ request }: DataFunctionArgs) {
 		},
 		ENV: getEnv(),
 	})
+}
+
+export const headers: HeadersFunction = ({ loaderHeaders }) => {
+	const headers = {
+		'Server-Timing': loaderHeaders.get('Server-Timing') ?? '',
+	}
+	return headers
 }
 
 export default function App() {
@@ -48,14 +57,14 @@ export default function App() {
 			<body className="relative z-[1] h-full bg-background text-primary-text before:absolute before:inset-0 before:z-[-1] before:bg-gradient-to-r before:from-background before:to-background-accent before:opacity-0 before:transition-opacity lg:before:opacity-100">
 				<Outlet />
 
-				<ScrollRestoration nonce={nonce} />
-				<Scripts nonce={nonce} />
 				<script
 					nonce={nonce}
 					dangerouslySetInnerHTML={{
 						__html: `window.ENV = ${JSON.stringify(data.ENV)}`,
 					}}
 				/>
+				<ScrollRestoration nonce={nonce} />
+				<Scripts nonce={nonce} />
 				<LiveReload nonce={nonce} />
 			</body>
 		</html>
