@@ -2,24 +2,24 @@
 	"include": ["**/*.ts", "**/*.tsx"],
 	"compilerOptions": {
 		"lib": ["DOM", "DOM.Iterable", "ES2022"],
-    "isolatedModules": true,
-    "esModuleInterop": true,
-    "jsx": "react-jsx",
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "resolveJsonModule": true,
-    "target": "ES2022",
-    "strict": true,
-    "noImplicitAny": true,
-    "allowJs": true,
-    "forceConsistentCasingInFileNames": true,
-    "baseUrl": ".",
-    "paths": {
-      "~/*": ["./app/*"],
-      "keystatic.config": ["./keystatic.config.ts"]
-    },
-    "skipLibCheck": true,
-    "allowImportingTsExtensions": true,
+		"isolatedModules": true,
+		"esModuleInterop": true,
+		"jsx": "react-jsx",
+		"module": "nodenext",
+		"moduleResolution": "nodenext",
+		"resolveJsonModule": true,
+		"target": "ES2022",
+		"strict": true,
+		"noImplicitAny": true,
+		"allowJs": true,
+		"forceConsistentCasingInFileNames": true,
+		"baseUrl": ".",
+		"paths": {
+			"~/*": ["./app/*"],
+			"keystatic.config": ["./keystatic.config.ts"]
+		},
+		"skipLibCheck": true,
+		"allowImportingTsExtensions": true,
 		"typeRoots": ["./types", "./node_modules/@types"],
 
 		// Remix takes care of building everything in `remix build`.
