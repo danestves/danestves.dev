@@ -8,7 +8,7 @@
     "build": "run-s build:*",
     "build:remix": "remix build",
     "build:server": "tsx ./other/build-server.ts",
-    "dev": "remix dev -c \"node ./server/dev-server.js\" --no-restart",
+    "dev": "remix dev -c \"node ./server/dev-server.js\" --manual",
     "format": "prettier --write .",
     "lint": "eslint .",
     "start": "cross-env NODE_ENV=production node .",
