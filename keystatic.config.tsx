@@ -81,8 +81,9 @@ export const componentBlocks = {
 		preview: props => {
 			return (
 				<div style={{ display: 'flex', gap: '1rem' }}>
-					{props.fields.tags.value.map(tag => (
+					{props.fields.tags.value.map((tag, tagIndex) => (
 						<span
+							key={tagIndex}
 							style={{
 								border: 'solid 1px #ddd',
 								padding: '0.25rem 0.5rem',
