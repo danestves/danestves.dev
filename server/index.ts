@@ -91,7 +91,7 @@ app.use(
 				'connect-src': [MODE === 'development' ? 'ws:' : null, "'self'", 'https://api.github.com'].filter(Boolean),
 				'font-src': ["'self'", 'https://fonts.gstatic.com'],
 				'frame-src': ["'self'"],
-				'img-src': ["'self'", 'https://avatars.githubusercontent.com'],
+				'img-src': ["'self'", 'data:', 'https://avatars.githubusercontent.com'],
 				'form-action': ["'self'", 'https://github.com'],
 				'script-src': [
 					"'strict-dynamic'",
