@@ -10,8 +10,9 @@ import fontStylesheetUrl from './styles/font.css'
 import tailwindStylesheetUrl from './styles/tailwind.css'
 import { ClientHintCheck, getHints } from './utils/client-hints.tsx'
 import { getEnv } from './utils/env.server.ts'
-import { getDomainUrl } from './utils/misc.server.ts'
+import { combineHeaders, getDomainUrl } from './utils/misc.ts'
 import { useNonce } from './utils/nonce-provider.ts'
+import { makeTimings } from './utils/timing.server.ts'
 
 const RemixDevTools =
 	process.env.NODE_ENV === 'development' ? React.lazy(() => import('remix-development-tools')) : undefined
@@ -33,14 +34,21 @@ export const links: LinksFunction = () => {
 }
 
 export async function loader({ request }: DataFunctionArgs) {
-	return json({
-		requestInfo: {
-			hints: getHints(request),
-			origin: getDomainUrl(request),
-			path: new URL(request.url).pathname,
+	const timings = makeTimings('root loader')
+
+	return json(
+		{
+			requestInfo: {
+				hints: getHints(request),
+				origin: getDomainUrl(request),
+				path: new URL(request.url).pathname,
+			},
+			ENV: getEnv(),
 		},
-		ENV: getEnv(),
-	})
+		{
+			headers: combineHeaders({ 'Server-Timing': timings.toString() }),
+		},
+	)
 }
 
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
