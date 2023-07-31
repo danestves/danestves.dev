@@ -8,12 +8,17 @@ export default config({
 	collections: {
 		posts: collection({
 			label: 'Posts',
-			slugField: 'slug',
+			slugField: 'title',
 			schema: {
-				title: fields.text({ label: 'Title' }),
-				slug: fields.text({
-					label: 'Slug',
-					validation: { length: { min: 4 } },
+				title: fields.slug({
+					name: {
+						label: 'Title',
+						description: 'The title of the post',
+					},
+					slug: {
+						label: 'SEO-friendly slug',
+						description: 'This will define the file/folder name for this entry',
+					},
 				}),
 				publishDate: fields.date({ label: 'Publish Date' }),
 				heroImage: fields.image({ label: 'Hero Image' }),
@@ -22,6 +27,7 @@ export default config({
 					formatting: true,
 					dividers: true,
 					links: true,
+					images: true,
 				}),
 			},
 		}),
