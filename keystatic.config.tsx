@@ -217,7 +217,7 @@ export default config({
 	singletons: {
 		settings: singleton({
 			label: 'Settings',
-			path: 'src/content/_settings',
+			path: 'content/_settings',
 			schema: {
 				something: fields.checkbox({ label: 'Something' }),
 				logo: fields.image({ label: 'Logo' }),
