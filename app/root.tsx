@@ -4,7 +4,7 @@ import { cssBundleHref } from '@remix-run/css-bundle'
 import { json } from '@remix-run/node'
 import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from '@remix-run/react'
 
-import fontStylestylesheetUrl from './styles/font.css'
+import fontStylesheetUrl from './styles/font.css'
 import tailwindStylesheetUrl from './styles/tailwind.css'
 import { ClientHintCheck, getHints } from './utils/client-hints.tsx'
 import { getEnv } from './utils/env.server.ts'
@@ -14,10 +14,10 @@ import { useNonce } from './utils/nonce-provider.ts'
 export const links: LinksFunction = () => {
 	return [
 		// Preload CSS as a resource to avoid render blocking
-		{ rel: 'preload', href: fontStylestylesheetUrl, as: 'style' },
+		{ rel: 'preload', href: fontStylesheetUrl, as: 'style' },
 		{ rel: 'preload', href: tailwindStylesheetUrl, as: 'style' },
 		cssBundleHref ? { rel: 'preload', href: cssBundleHref, as: 'style' } : null,
-		{ rel: 'stylesheet', href: fontStylestylesheetUrl },
+		{ rel: 'stylesheet', href: fontStylesheetUrl },
 		{ rel: 'stylesheet', href: tailwindStylesheetUrl },
 		cssBundleHref ? { rel: 'stylesheet', href: cssBundleHref } : null,
 	].filter(Boolean)
