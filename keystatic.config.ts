@@ -11,6 +11,7 @@ export default config({
 			slugField: 'title',
 			path: 'content/posts/*',
 			format: { contentField: 'content' },
+			entryLayout: 'content',
 			schema: {
 				title: fields.slug({
 					name: {
