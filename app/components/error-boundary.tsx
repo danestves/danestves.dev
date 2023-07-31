@@ -1,6 +1,5 @@
-import type { ErrorResponse } from '@remix-run/router'
-
 import { isRouteErrorResponse, useParams, useRouteError } from '@remix-run/react'
+import { type ErrorResponse } from '@remix-run/router'
 
 import { getErrorMessage } from '~/utils/misc.ts'
 
@@ -27,7 +26,7 @@ export function GeneralErrorBoundary({
 	}
 
 	return (
-		<div className="container mx-auto flex items-center justify-center p-20">
+		<div className="container flex items-center justify-center p-20 text-2xl">
 			{isRouteErrorResponse(error)
 				? (statusHandlers?.[error.status] ?? defaultStatusHandler)({
 						error,

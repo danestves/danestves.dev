@@ -6,6 +6,8 @@ import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLoaderD
 import * as React from 'react'
 import rdtStylesheetUrl from 'remix-development-tools/stylesheet.css'
 
+import { GeneralErrorBoundary } from '~/components/error-boundary.tsx'
+
 import fontStylesheetUrl from './styles/font.css'
 import tailwindStylesheetUrl from './styles/tailwind.css'
 import { ClientHintCheck, getHints } from './utils/client-hints.tsx'
@@ -58,12 +60,17 @@ export const headers: HeadersFunction = ({ loaderHeaders }) => {
 	return headers
 }
 
-export default function App() {
-	const data = useLoaderData<typeof loader>()
-	const nonce = useNonce()
-
+function Document({
+	children,
+	nonce,
+	env,
+}: {
+	children: React.ReactNode
+	nonce: string
+	env?: Record<string, string>
+}) {
 	return (
-		<html lang="en" className="h-full">
+		<html lang="es" className="h-full">
 			<head>
 				<ClientHintCheck nonce={nonce} />
 				<Meta />
@@ -72,12 +79,12 @@ export default function App() {
 				<Links />
 			</head>
 			<body className="relative z-[1] h-full bg-background text-primary-text before:absolute before:inset-0 before:z-[-1] before:bg-gradient-to-r before:from-background before:to-background-accent before:opacity-0 before:transition-opacity lg:before:opacity-100">
-				<Outlet />
+				{children}
 
 				<script
 					nonce={nonce}
 					dangerouslySetInnerHTML={{
-						__html: `window.ENV = ${JSON.stringify(data.ENV)}`,
+						__html: `window.ENV = ${JSON.stringify(env)}`,
 					}}
 				/>
 				<ScrollRestoration nonce={nonce} />
@@ -90,5 +97,35 @@ export default function App() {
 				)}
 			</body>
 		</html>
+	)
+}
+
+export default function App() {
+	const data = useLoaderData<typeof loader>()
+	const nonce = useNonce()
+
+	return (
+		<Document nonce={nonce} env={data.ENV}>
+			<Outlet />
+		</Document>
+	)
+}
+
+export function ErrorBoundary() {
+	// the nonce doesn't rely on the loader, so we can access that
+	const nonce = useNonce()
+
+	// NOTE: you cannot use useLoaderData in an ErrorBoundary because the loader
+	// likely failed to run, so we have to do the best we can.
+	// We could probably do better than this (it's possible the loader did run).
+	// This would require a change in Remix.
+
+	// Just make sure your root route never errors out, and you'll always be able
+	// to give the user a better UX.
+
+	return (
+		<Document nonce={nonce}>
+			<GeneralErrorBoundary />
+		</Document>
 	)
 }
