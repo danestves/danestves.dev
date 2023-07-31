@@ -3,6 +3,8 @@ import type { DataFunctionArgs, HeadersFunction, LinksFunction } from '@remix-ru
 import { cssBundleHref } from '@remix-run/css-bundle'
 import { json } from '@remix-run/node'
 import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from '@remix-run/react'
+import * as React from 'react'
+import rdtStylesheetUrl from 'remix-development-tools/stylesheet.css'
 
 import fontStylesheetUrl from './styles/font.css'
 import tailwindStylesheetUrl from './styles/tailwind.css'
@@ -11,15 +13,22 @@ import { getEnv } from './utils/env.server.ts'
 import { getDomainUrl } from './utils/misc.server.ts'
 import { useNonce } from './utils/nonce-provider.ts'
 
+const RemixDevTools =
+	process.env.NODE_ENV === 'development' ? React.lazy(() => import('remix-development-tools')) : undefined
+
 export const links: LinksFunction = () => {
 	return [
 		// Preload CSS as a resource to avoid render blocking
 		{ rel: 'preload', href: fontStylesheetUrl, as: 'style' },
 		{ rel: 'preload', href: tailwindStylesheetUrl, as: 'style' },
 		cssBundleHref ? { rel: 'preload', href: cssBundleHref, as: 'style' } : null,
+		rdtStylesheetUrl && process.env.NODE_ENV === 'development'
+			? { rel: 'preload', href: rdtStylesheetUrl, as: 'style' }
+			: null,
 		{ rel: 'stylesheet', href: fontStylesheetUrl },
 		{ rel: 'stylesheet', href: tailwindStylesheetUrl },
 		cssBundleHref ? { rel: 'stylesheet', href: cssBundleHref } : null,
+		rdtStylesheetUrl && process.env.NODE_ENV === 'development' ? { rel: 'stylesheet', href: rdtStylesheetUrl } : null,
 	].filter(Boolean)
 }
 
@@ -66,6 +75,11 @@ export default function App() {
 				<ScrollRestoration nonce={nonce} />
 				<Scripts nonce={nonce} />
 				<LiveReload nonce={nonce} />
+				{RemixDevTools && (
+					<React.Suspense>
+						<RemixDevTools />
+					</React.Suspense>
+				)}
 			</body>
 		</html>
 	)
