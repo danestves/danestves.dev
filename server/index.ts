@@ -82,14 +82,13 @@ app.use((_, res, next) => {
 	next()
 })
 
-const defaultConnectSrc = ["'self'", 'https://api.github.com']
-
 app.use(
 	helmet({
+		referrerPolicy: { policy: 'same-origin' },
 		crossOriginEmbedderPolicy: false,
 		contentSecurityPolicy: {
 			directives: {
-				'connect-src': MODE === 'development' ? ['ws:', ...defaultConnectSrc] : [...defaultConnectSrc],
+				'connect-src': [MODE === 'development' ? 'ws:' : null, "'self'", 'https://api.github.com'].filter(Boolean),
 				'font-src': ["'self'", 'https://fonts.gstatic.com'],
 				'frame-src': ["'self'"],
 				'img-src': ["'self'", 'https://avatars.githubusercontent.com'],
