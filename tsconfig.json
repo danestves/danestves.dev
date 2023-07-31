@@ -16,7 +16,7 @@
 		"baseUrl": ".",
 		"paths": {
 			"~/*": ["./app/*"],
-			"keystatic.config": ["./keystatic.config.ts"]
+			"keystatic.config": ["./keystatic.config.tsx"]
 		},
 		"skipLibCheck": true,
 		"allowImportingTsExtensions": true,

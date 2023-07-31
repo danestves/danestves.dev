@@ -78,7 +78,7 @@ function Document({
 				<meta name="viewport" content="width=device-width,initial-scale=1" />
 				<Links />
 			</head>
-			<body className="relative z-[1] h-full bg-background text-primary-text before:absolute before:inset-0 before:z-[-1] before:bg-gradient-to-r before:from-background before:to-background-accent before:opacity-0 before:transition-opacity lg:before:opacity-100">
+			<body className="h-full">
 				{children}
 
 				<script
